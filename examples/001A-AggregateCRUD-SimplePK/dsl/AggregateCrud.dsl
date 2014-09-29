@@ -1,6 +1,6 @@
 module AggregateCrud
 {
 	aggregate Asteroid(name) {
-		String name;
+		String(14) name;
 	}
 }

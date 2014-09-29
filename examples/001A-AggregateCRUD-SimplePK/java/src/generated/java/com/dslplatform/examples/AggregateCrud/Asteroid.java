@@ -294,6 +294,7 @@ public class Asteroid implements java.io.Serializable,
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"name\" cannot be null!");
+        com.dslplatform.examples.Guards.checkLength(value, 14);
         this.name = value;
 
         return this;
