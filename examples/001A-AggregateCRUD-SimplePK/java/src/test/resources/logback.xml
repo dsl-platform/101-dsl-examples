@@ -1,0 +1,9 @@
+<configuration>
+    <root level="DEBUG">
+        <appender class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{ISO8601} [%-5level]: %m%n</pattern>
+            </encoder>
+        </appender>
+    </root>
+</configuration>
