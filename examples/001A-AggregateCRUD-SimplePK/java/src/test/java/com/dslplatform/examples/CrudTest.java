@@ -1,14 +1,12 @@
 package com.dslplatform.examples;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
-import java.util.Random;
 
 import com.dslplatform.examples.AggregateCrud.Asteroid;
 import com.dslplatform.examples.AggregateCrud.repositories.AsteroidRepository;
 import com.dslplatform.patterns.ServiceLocator;
 import java.io.IOException;
+import java.util.Random;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -47,10 +45,12 @@ public class CrudTest {
   }
 
   /**
+   * Full CRUD test.
+   * Demonstrates a CREATE / READ / UPDATE / READ / DELETE cycle.
    */
   @Test
   public void fullCRUD() throws IOException {
-    // Initialize an asteroid we wish to persist and read.
+    // Initialize an asteroid..
     final String   name     = getRandomAsteroidName();
     final Asteroid asteroid = new Asteroid(name);
 
@@ -61,8 +61,8 @@ public class CrudTest {
     final Asteroid readAsteroid = Asteroid.find(name);
     assertEquals(readAsteroid.getName(), name);
 
-    // Create new name, and UPDATE.
-    final String updatedName = name + "-NEW";
+    // Construct a new name, and UPDATE created asteroid with it.
+    final String updatedName = getRandomAsteroidName();
     asteroid.setName(updatedName);
     asteroid.update();
 
@@ -74,15 +74,45 @@ public class CrudTest {
     updatedAsteroid.delete();
   }
 
+
   @Test (expected = IOException.class)
   public void duplicateKey() throws IOException {
-    // Initialize two asteroids wtih the same name.
-    final String   name     = getRandomAsteroidName();
+    // Initialize two asteroids with the same name.
+    final String   name      = getRandomAsteroidName();
     final Asteroid asteroid1 = new Asteroid(name);
     final Asteroid asteroid2 = new Asteroid(name);
 
-    // Try to persist them both.
+    // Try to CREATE them both.
     asteroid1.create();
     asteroid2.create();
+  }
+
+  @Test (expected = IOException.class)
+  public void readMissing() throws IOException {
+    // Get a random asteroid name.
+    final String name = getRandomAsteroidName();
+
+    // Try to READ an asteroid with that name.
+    Asteroid.find(name);
+  }
+
+  @Test (expected = IOException.class)
+  public void updateMissing() throws IOException {
+    // Initialize an asteroid, but do not CREATE it.
+    final String   name     = getRandomAsteroidName();
+    final Asteroid asteroid = new Asteroid(name);
+
+    // Try to UPDATE it.
+    asteroid.update();
+  }
+
+  @Test (expected = IOException.class)
+  public void deleteMissing() throws IOException {
+    // Initialize an asteroid, but do not CREATE it.
+    final String   name     = getRandomAsteroidName();
+    final Asteroid asteroid = new Asteroid(name);
+
+    // Try to DELETE it.
+    asteroid.delete();
   }
 }
