@@ -33,7 +33,7 @@ public class AsteroidTest {
     return r.nextInt(max - min) + min;
   }
 
-  public static String getRandomAsteroidName() {
+  public static String getRandomAsteroidCode() {
     final Random r = new Random();
     return
         String.format("%04d", rand(r, 0, 10000)) + "-" +
@@ -51,24 +51,24 @@ public class AsteroidTest {
   @Test
   public void fullCRUD() throws IOException {
     // Initialize an asteroid..
-    final String   name     = getRandomAsteroidName();
-    final Asteroid asteroid = new Asteroid(name);
+    final String   code     = getRandomAsteroidCode();
+    final Asteroid asteroid = new Asteroid(code);
 
     // CREATE.
     asteroid.create();
 
     // READ, and compare result with original.
-    final Asteroid readAsteroid = Asteroid.find(name);
-    assertEquals(readAsteroid.getName(), name);
+    final Asteroid readAsteroid = Asteroid.find(code);
+    assertEquals(readAsteroid.getCode(), code);
 
-    // Construct a new name, and UPDATE created asteroid with it.
-    final String updatedName = getRandomAsteroidName();
-    asteroid.setName(updatedName);
+    // Construct a new code, and UPDATE created asteroid with it.
+    final String updatedCode = getRandomAsteroidCode();
+    asteroid.setCode(updatedCode);
     asteroid.update();
 
     // READ updated asteroid.
-    final Asteroid updatedAsteroid = Asteroid.find(updatedName);
-    assertEquals(updatedAsteroid.getName(), updatedName);
+    final Asteroid updatedAsteroid = Asteroid.find(updatedCode);
+    assertEquals(updatedAsteroid.getCode(), updatedCode);
 
     // DELETE updated asteroid.
     updatedAsteroid.delete();
@@ -77,10 +77,10 @@ public class AsteroidTest {
 
   @Test (expected = IOException.class)
   public void duplicateKey() throws IOException {
-    // Initialize two asteroids with the same name.
-    final String   name      = getRandomAsteroidName();
-    final Asteroid asteroid1 = new Asteroid(name);
-    final Asteroid asteroid2 = new Asteroid(name);
+    // Initialize two asteroids with the same code.
+    final String   code      = getRandomAsteroidCode();
+    final Asteroid asteroid1 = new Asteroid(code);
+    final Asteroid asteroid2 = new Asteroid(code);
 
     // Try to CREATE them both.
     asteroid1.create();
@@ -89,18 +89,18 @@ public class AsteroidTest {
 
   @Test (expected = IOException.class)
   public void readMissing() throws IOException {
-    // Get a random asteroid name.
-    final String name = getRandomAsteroidName();
+    // Get a random asteroid code.
+    final String code = getRandomAsteroidCode();
 
-    // Try to READ an asteroid with that name.
-    Asteroid.find(name);
+    // Try to READ an asteroid with that code.
+    Asteroid.find(code);
   }
 
   @Test (expected = IOException.class)
   public void updateMissing() throws IOException {
     // Initialize an asteroid, but do not CREATE it.
-    final String   name     = getRandomAsteroidName();
-    final Asteroid asteroid = new Asteroid(name);
+    final String   code     = getRandomAsteroidCode();
+    final Asteroid asteroid = new Asteroid(code);
 
     // Try to UPDATE it.
     asteroid.update();
@@ -109,22 +109,22 @@ public class AsteroidTest {
   @Test (expected = IOException.class)
   public void deleteMissing() throws IOException {
     // Initialize an asteroid, but do not CREATE it.
-    final String   name     = getRandomAsteroidName();
-    final Asteroid asteroid = new Asteroid(name);
+    final String   code     = getRandomAsteroidCode();
+    final Asteroid asteroid = new Asteroid(code);
 
     // Try to DELETE it.
     asteroid.delete();
   }
 
   @Test (expected = IllegalArgumentException.class)
-  public void createNullName() throws IOException {
-    // Try to create an asteroid with a NULL name.
+  public void createNullCode() throws IOException {
+    // Try to create an asteroid with a NULL code.
     new Asteroid(null);
   }
 
   @Test (expected = IllegalArgumentException.class)
-  public void createLongName() {
-    // Try to create an asteroid with a too long name.
-    new Asteroid("A THIRTY-FOUR CHARACTERS LONG NAME");
+  public void createLongCode() {
+    // Try to create an asteroid with a too long code.
+    new Asteroid("A THIRTY-FOUR CHARACTERS LONG CODE");
   }
 }

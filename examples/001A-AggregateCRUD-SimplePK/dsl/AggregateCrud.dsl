@@ -1,6 +1,12 @@
 module AggregateCrud
 {
-	aggregate Asteroid(name) {
-		String(14) name;
+	// Show-cases handling of special and strange characters.
+	aggregate Planet(name) {
+		String name;
+	}
+
+	// Show-cases length limit on String type.
+	aggregate Asteroid(code) {
+		String(14) code;
 	}
 }

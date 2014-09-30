@@ -1,10 +1,10 @@
 package com.dslplatform.examples.AggregateCrud;
 
-public class Asteroid implements java.io.Serializable,
+public class Planet implements java.io.Serializable,
         com.dslplatform.patterns.AggregateRoot {
-    public Asteroid() {
+    public Planet() {
         URI = java.util.UUID.randomUUID().toString();
-        this.code = "";
+        this.name = "";
     }
 
     private transient com.dslplatform.patterns.ServiceLocator _serviceLocator;
@@ -27,37 +27,37 @@ public class Asteroid implements java.io.Serializable,
         if (obj == null) return false;
 
         if (getClass() != obj.getClass()) return false;
-        final Asteroid other = (Asteroid) obj;
+        final Planet other = (Planet) obj;
 
         return URI.equals(other.URI);
     }
 
     @Override
     public String toString() {
-        return "Asteroid(" + URI + ')';
+        return "Planet(" + URI + ')';
     }
 
     private static final long serialVersionUID = 0x0097000a;
 
     @com.fasterxml.jackson.annotation.JsonCreator
-    private Asteroid(
+    private Planet(
             @com.fasterxml.jackson.annotation.JacksonInject("_serviceLocator") final com.dslplatform.patterns.ServiceLocator _serviceLocator,
             @com.fasterxml.jackson.annotation.JsonProperty("URI") final String URI,
-            @com.fasterxml.jackson.annotation.JsonProperty("code") final String code) {
+            @com.fasterxml.jackson.annotation.JsonProperty("name") final String name) {
         this._serviceLocator = _serviceLocator;
         this.URI = URI != null ? URI : new java.util.UUID(0L, 0L).toString();
-        this.code = code == null ? "" : code;
+        this.name = name == null ? "" : name;
     }
 
     public boolean isNewAggregate() {
         return _serviceLocator == null;
     }
 
-    public static Asteroid find(final String uri) throws java.io.IOException {
+    public static Planet find(final String uri) throws java.io.IOException {
         return find(uri, com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static Asteroid find(
+    public static Planet find(
             final String uri,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
@@ -66,7 +66,7 @@ public class Asteroid implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.CrudProxy.class)
-                    .read(Asteroid.class, uri).get();
+                    .read(Planet.class, uri).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -74,12 +74,12 @@ public class Asteroid implements java.io.Serializable,
         }
     }
 
-    public static java.util.List<Asteroid> find(final Iterable<String> uris)
+    public static java.util.List<Planet> find(final Iterable<String> uris)
             throws java.io.IOException {
         return find(uris, com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<Asteroid> find(
+    public static java.util.List<Planet> find(
             final Iterable<String> uris,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
@@ -88,7 +88,7 @@ public class Asteroid implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.DomainProxy.class)
-                    .find(Asteroid.class, uris).get();
+                    .find(Planet.class, uris).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -96,24 +96,24 @@ public class Asteroid implements java.io.Serializable,
         }
     }
 
-    public static java.util.List<Asteroid> search() throws java.io.IOException {
+    public static java.util.List<Planet> search() throws java.io.IOException {
         return search(null, null, com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<Asteroid> search(
+    public static java.util.List<Planet> search(
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
         return search(null, null, locator);
     }
 
-    public static java.util.List<Asteroid> search(
+    public static java.util.List<Planet> search(
             final Integer limit,
             final Integer offset) throws java.io.IOException {
         return search(limit, offset,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<Asteroid> search(
+    public static java.util.List<Planet> search(
             final Integer limit,
             final Integer offset,
             final com.dslplatform.patterns.ServiceLocator locator)
@@ -123,7 +123,7 @@ public class Asteroid implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.DomainProxy.class)
-                    .search(Asteroid.class, limit, offset, null).get();
+                    .search(Planet.class, limit, offset, null).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -131,30 +131,30 @@ public class Asteroid implements java.io.Serializable,
         }
     }
 
-    public static java.util.List<Asteroid> search(
-            final com.dslplatform.patterns.Specification<Asteroid> specification)
+    public static java.util.List<Planet> search(
+            final com.dslplatform.patterns.Specification<Planet> specification)
             throws java.io.IOException {
         return search(specification, null, null,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<Asteroid> search(
-            final com.dslplatform.patterns.Specification<Asteroid> specification,
+    public static java.util.List<Planet> search(
+            final com.dslplatform.patterns.Specification<Planet> specification,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
         return search(specification, null, null, locator);
     }
 
-    public static java.util.List<Asteroid> search(
-            final com.dslplatform.patterns.Specification<Asteroid> specification,
+    public static java.util.List<Planet> search(
+            final com.dslplatform.patterns.Specification<Planet> specification,
             final Integer limit,
             final Integer offset) throws java.io.IOException {
         return search(specification, limit, offset,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<Asteroid> search(
-            final com.dslplatform.patterns.Specification<Asteroid> specification,
+    public static java.util.List<Planet> search(
+            final com.dslplatform.patterns.Specification<Planet> specification,
             final Integer limit,
             final Integer offset,
             final com.dslplatform.patterns.ServiceLocator locator)
@@ -184,7 +184,7 @@ public class Asteroid implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.DomainProxy.class)
-                    .count(Asteroid.class).get().longValue();
+                    .count(Planet.class).get().longValue();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -193,14 +193,14 @@ public class Asteroid implements java.io.Serializable,
     }
 
     public static long count(
-            final com.dslplatform.patterns.Specification<Asteroid> specification)
+            final com.dslplatform.patterns.Specification<Planet> specification)
             throws java.io.IOException {
         return count(specification,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
     public static long count(
-            final com.dslplatform.patterns.Specification<Asteroid> specification,
+            final com.dslplatform.patterns.Specification<Planet> specification,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
         try {
@@ -216,21 +216,21 @@ public class Asteroid implements java.io.Serializable,
         }
     }
 
-    private void updateWithAnother(final Asteroid result) {
+    private void updateWithAnother(final Planet result) {
         this.URI = result.URI;
 
-        this.code = result.code;
+        this.name = result.name;
     }
 
-    public Asteroid create() throws java.io.IOException {
+    public Planet create() throws java.io.IOException {
         return create(_serviceLocator != null
                 ? _serviceLocator
                 : com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public Asteroid create(com.dslplatform.patterns.ServiceLocator locator)
+    public Planet create(com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
-        final Asteroid result;
+        final Planet result;
         try {
             com.dslplatform.client.CrudProxy proxy = (locator != null
                     ? locator
@@ -249,11 +249,11 @@ public class Asteroid implements java.io.Serializable,
         return this;
     }
 
-    public Asteroid update() throws java.io.IOException {
+    public Planet update() throws java.io.IOException {
         if (_serviceLocator == null)
             throw new java.io.IOException(
                     "Can't update newly created aggregate root");
-        final Asteroid result;
+        final Planet result;
         try {
             com.dslplatform.client.CrudProxy proxy = _serviceLocator
                     .resolve(com.dslplatform.client.CrudProxy.class);
@@ -267,14 +267,14 @@ public class Asteroid implements java.io.Serializable,
         return this;
     }
 
-    public Asteroid delete() throws java.io.IOException {
+    public Planet delete() throws java.io.IOException {
         if (_serviceLocator == null)
             throw new java.io.IOException(
                     "Can't delete newly created aggregate root");
         try {
             com.dslplatform.client.CrudProxy proxy = _serviceLocator
                     .resolve(com.dslplatform.client.CrudProxy.class);
-            return proxy.delete(Asteroid.class, URI).get();
+            return proxy.delete(Planet.class, URI).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -282,27 +282,26 @@ public class Asteroid implements java.io.Serializable,
         }
     }
 
-    private String code;
+    private String name;
 
-    @com.fasterxml.jackson.annotation.JsonProperty("code")
+    @com.fasterxml.jackson.annotation.JsonProperty("name")
     @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY)
-    public String getCode() {
-        return code;
+    public String getName() {
+        return name;
     }
 
-    public Asteroid setCode(final String value) {
+    public Planet setName(final String value) {
         if (value == null)
             throw new IllegalArgumentException(
-                    "Property \"code\" cannot be null!");
-        com.dslplatform.examples.Guards.checkLength(value, 14);
-        this.code = value;
+                    "Property \"name\" cannot be null!");
+        this.name = value;
 
         return this;
     }
 
-    public Asteroid(
-            final String code) {
-        setCode(code);
+    public Planet(
+            final String name) {
+        setName(name);
     }
 
 }
