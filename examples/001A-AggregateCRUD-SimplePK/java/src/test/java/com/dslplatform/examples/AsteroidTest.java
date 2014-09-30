@@ -6,7 +6,6 @@ import com.dslplatform.examples.AggregateCrud.Asteroid;
 import com.dslplatform.examples.AggregateCrud.repositories.AsteroidRepository;
 import com.dslplatform.patterns.ServiceLocator;
 import java.io.IOException;
-import java.util.Random;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,24 +25,6 @@ public class AsteroidTest {
     Model.shutdown(locator);
   }
 
-  public static int rand(
-      final Random r,
-      final int min,
-      final int max) {
-    return r.nextInt(max - min) + min;
-  }
-
-  public static String getRandomAsteroidCode() {
-    final Random r = new Random();
-    return
-        String.format("%04d", rand(r, 0, 10000)) + "-" +
-        (char)rand(r, 65, 91) +
-        (char)rand(r, 65, 91) +
-        (char)rand(r, 65, 91) +
-        (char)rand(r, 65, 91) + "-" +
-        String.format("%04d", rand(r, 0, 10000));
-  }
-
   /**
    * Full CRUD test.
    * Demonstrates a CREATE / READ / UPDATE / READ / DELETE cycle.
@@ -51,7 +32,7 @@ public class AsteroidTest {
   @Test
   public void fullCRUD() throws IOException {
     // Initialize an asteroid..
-    final String   code     = getRandomAsteroidCode();
+    final String   code     = Util.getRandomAsteroidCode();
     final Asteroid asteroid = new Asteroid(code);
 
     // CREATE.
@@ -62,7 +43,7 @@ public class AsteroidTest {
     assertEquals(readAsteroid.getCode(), code);
 
     // Construct a new code, and UPDATE created asteroid with it.
-    final String updatedCode = getRandomAsteroidCode();
+    final String updatedCode = Util.getRandomAsteroidCode();
     asteroid.setCode(updatedCode);
     asteroid.update();
 
@@ -78,7 +59,7 @@ public class AsteroidTest {
   @Test (expected = IOException.class)
   public void duplicateKey() throws IOException {
     // Initialize two asteroids with the same code.
-    final String   code      = getRandomAsteroidCode();
+    final String   code      = Util.getRandomAsteroidCode();
     final Asteroid asteroid1 = new Asteroid(code);
     final Asteroid asteroid2 = new Asteroid(code);
 
@@ -90,7 +71,7 @@ public class AsteroidTest {
   @Test (expected = IOException.class)
   public void readMissing() throws IOException {
     // Get a random asteroid code.
-    final String code = getRandomAsteroidCode();
+    final String code = Util.getRandomAsteroidCode();
 
     // Try to READ an asteroid with that code.
     Asteroid.find(code);
@@ -99,7 +80,7 @@ public class AsteroidTest {
   @Test (expected = IOException.class)
   public void updateMissing() throws IOException {
     // Initialize an asteroid, but do not CREATE it.
-    final String   code     = getRandomAsteroidCode();
+    final String   code     = Util.getRandomAsteroidCode();
     final Asteroid asteroid = new Asteroid(code);
 
     // Try to UPDATE it.
@@ -109,7 +90,7 @@ public class AsteroidTest {
   @Test (expected = IOException.class)
   public void deleteMissing() throws IOException {
     // Initialize an asteroid, but do not CREATE it.
-    final String   code     = getRandomAsteroidCode();
+    final String   code     = Util.getRandomAsteroidCode();
     final Asteroid asteroid = new Asteroid(code);
 
     // Try to DELETE it.
