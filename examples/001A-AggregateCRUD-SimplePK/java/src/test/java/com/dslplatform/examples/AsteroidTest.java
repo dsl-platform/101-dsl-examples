@@ -11,7 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class CrudTest {
+public class AsteroidTest {
   public static ServiceLocator locator;
   public static AsteroidRepository repo;
 
@@ -114,5 +114,17 @@ public class CrudTest {
 
     // Try to DELETE it.
     asteroid.delete();
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void createNullName() throws IOException {
+    // Try to create an asteroid with a NULL name.
+    new Asteroid(null);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void createLongName() {
+    // Try to create an asteroid with a too long name.
+    new Asteroid("A THIRTY-FOUR CHARACTERS LONG NAME");
   }
 }
