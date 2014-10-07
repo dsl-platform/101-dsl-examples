@@ -50,4 +50,4 @@ The purpose of this example is to demonstrate how [Active Record pattern](http:/
  * It can only work with one aggregate at a time.
  * All calls are blocking.
 
-Recommended way to use the Platform is through Repositories. Their usage is explained in [Example 2: World wonders](002-world-wonders.README.md "World wonders example").
+Recommended way to use the Platform is through Repositories. Their usage is explained in [Example 2: World wonders](../002-world-wonders "World wonders example").
