@@ -1,8 +1,8 @@
-package com.dslplatform.examples.AggregateCrud;
+package com.dslplatform.examples.PeriodicTable;
 
-public class PeriodicElement implements java.io.Serializable,
+public class Element implements java.io.Serializable,
         com.dslplatform.patterns.AggregateRoot {
-    public PeriodicElement() {
+    public Element() {
         URI = java.util.UUID.randomUUID().toString();
         this.number = 0;
         this.name = "";
@@ -28,20 +28,20 @@ public class PeriodicElement implements java.io.Serializable,
         if (obj == null) return false;
 
         if (getClass() != obj.getClass()) return false;
-        final PeriodicElement other = (PeriodicElement) obj;
+        final Element other = (Element) obj;
 
         return URI.equals(other.URI);
     }
 
     @Override
     public String toString() {
-        return "PeriodicElement(" + URI + ')';
+        return "Element(" + URI + ')';
     }
 
     private static final long serialVersionUID = 0x0097000a;
 
     @com.fasterxml.jackson.annotation.JsonCreator
-    private PeriodicElement(
+    private Element(
             @com.fasterxml.jackson.annotation.JacksonInject("_serviceLocator") final com.dslplatform.patterns.ServiceLocator _serviceLocator,
             @com.fasterxml.jackson.annotation.JsonProperty("URI") final String URI,
             @com.fasterxml.jackson.annotation.JsonProperty("number") final int number,
@@ -56,12 +56,11 @@ public class PeriodicElement implements java.io.Serializable,
         return _serviceLocator == null;
     }
 
-    public static PeriodicElement find(final String uri)
-            throws java.io.IOException {
+    public static Element find(final String uri) throws java.io.IOException {
         return find(uri, com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static PeriodicElement find(
+    public static Element find(
             final String uri,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
@@ -70,7 +69,7 @@ public class PeriodicElement implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.CrudProxy.class)
-                    .read(PeriodicElement.class, uri).get();
+                    .read(Element.class, uri).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -78,12 +77,12 @@ public class PeriodicElement implements java.io.Serializable,
         }
     }
 
-    public static java.util.List<PeriodicElement> find(
-            final Iterable<String> uris) throws java.io.IOException {
+    public static java.util.List<Element> find(final Iterable<String> uris)
+            throws java.io.IOException {
         return find(uris, com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<PeriodicElement> find(
+    public static java.util.List<Element> find(
             final Iterable<String> uris,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
@@ -92,7 +91,7 @@ public class PeriodicElement implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.DomainProxy.class)
-                    .find(PeriodicElement.class, uris).get();
+                    .find(Element.class, uris).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -100,25 +99,24 @@ public class PeriodicElement implements java.io.Serializable,
         }
     }
 
-    public static java.util.List<PeriodicElement> search()
-            throws java.io.IOException {
+    public static java.util.List<Element> search() throws java.io.IOException {
         return search(null, null, com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<PeriodicElement> search(
+    public static java.util.List<Element> search(
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
         return search(null, null, locator);
     }
 
-    public static java.util.List<PeriodicElement> search(
+    public static java.util.List<Element> search(
             final Integer limit,
             final Integer offset) throws java.io.IOException {
         return search(limit, offset,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<PeriodicElement> search(
+    public static java.util.List<Element> search(
             final Integer limit,
             final Integer offset,
             final com.dslplatform.patterns.ServiceLocator locator)
@@ -128,7 +126,7 @@ public class PeriodicElement implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.DomainProxy.class)
-                    .search(PeriodicElement.class, limit, offset, null).get();
+                    .search(Element.class, limit, offset, null).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -136,30 +134,30 @@ public class PeriodicElement implements java.io.Serializable,
         }
     }
 
-    public static java.util.List<PeriodicElement> search(
-            final com.dslplatform.patterns.Specification<PeriodicElement> specification)
+    public static java.util.List<Element> search(
+            final com.dslplatform.patterns.Specification<Element> specification)
             throws java.io.IOException {
         return search(specification, null, null,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<PeriodicElement> search(
-            final com.dslplatform.patterns.Specification<PeriodicElement> specification,
+    public static java.util.List<Element> search(
+            final com.dslplatform.patterns.Specification<Element> specification,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
         return search(specification, null, null, locator);
     }
 
-    public static java.util.List<PeriodicElement> search(
-            final com.dslplatform.patterns.Specification<PeriodicElement> specification,
+    public static java.util.List<Element> search(
+            final com.dslplatform.patterns.Specification<Element> specification,
             final Integer limit,
             final Integer offset) throws java.io.IOException {
         return search(specification, limit, offset,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public static java.util.List<PeriodicElement> search(
-            final com.dslplatform.patterns.Specification<PeriodicElement> specification,
+    public static java.util.List<Element> search(
+            final com.dslplatform.patterns.Specification<Element> specification,
             final Integer limit,
             final Integer offset,
             final com.dslplatform.patterns.ServiceLocator locator)
@@ -189,7 +187,7 @@ public class PeriodicElement implements java.io.Serializable,
                     ? locator
                     : com.dslplatform.client.Bootstrap.getLocator())
                     .resolve(com.dslplatform.client.DomainProxy.class)
-                    .count(PeriodicElement.class).get().longValue();
+                    .count(Element.class).get().longValue();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -198,14 +196,14 @@ public class PeriodicElement implements java.io.Serializable,
     }
 
     public static long count(
-            final com.dslplatform.patterns.Specification<PeriodicElement> specification)
+            final com.dslplatform.patterns.Specification<Element> specification)
             throws java.io.IOException {
         return count(specification,
                 com.dslplatform.client.Bootstrap.getLocator());
     }
 
     public static long count(
-            final com.dslplatform.patterns.Specification<PeriodicElement> specification,
+            final com.dslplatform.patterns.Specification<Element> specification,
             final com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
         try {
@@ -221,23 +219,22 @@ public class PeriodicElement implements java.io.Serializable,
         }
     }
 
-    private void updateWithAnother(final PeriodicElement result) {
+    private void updateWithAnother(final Element result) {
         this.URI = result.URI;
 
         this.number = result.number;
         this.name = result.name;
     }
 
-    public PeriodicElement create() throws java.io.IOException {
+    public Element create() throws java.io.IOException {
         return create(_serviceLocator != null
                 ? _serviceLocator
                 : com.dslplatform.client.Bootstrap.getLocator());
     }
 
-    public PeriodicElement create(
-            com.dslplatform.patterns.ServiceLocator locator)
+    public Element create(com.dslplatform.patterns.ServiceLocator locator)
             throws java.io.IOException {
-        final PeriodicElement result;
+        final Element result;
         try {
             com.dslplatform.client.CrudProxy proxy = (locator != null
                     ? locator
@@ -256,11 +253,11 @@ public class PeriodicElement implements java.io.Serializable,
         return this;
     }
 
-    public PeriodicElement update() throws java.io.IOException {
+    public Element update() throws java.io.IOException {
         if (_serviceLocator == null)
             throw new java.io.IOException(
                     "Can't update newly created aggregate root");
-        final PeriodicElement result;
+        final Element result;
         try {
             com.dslplatform.client.CrudProxy proxy = _serviceLocator
                     .resolve(com.dslplatform.client.CrudProxy.class);
@@ -274,14 +271,14 @@ public class PeriodicElement implements java.io.Serializable,
         return this;
     }
 
-    public PeriodicElement delete() throws java.io.IOException {
+    public Element delete() throws java.io.IOException {
         if (_serviceLocator == null)
             throw new java.io.IOException(
                     "Can't delete newly created aggregate root");
         try {
             com.dslplatform.client.CrudProxy proxy = _serviceLocator
                     .resolve(com.dslplatform.client.CrudProxy.class);
-            return proxy.delete(PeriodicElement.class, URI).get();
+            return proxy.delete(Element.class, URI).get();
         } catch (final InterruptedException e) {
             throw new java.io.IOException(e);
         } catch (final java.util.concurrent.ExecutionException e) {
@@ -297,7 +294,7 @@ public class PeriodicElement implements java.io.Serializable,
         return number;
     }
 
-    public PeriodicElement setNumber(final int value) {
+    public Element setNumber(final int value) {
         this.number = value;
 
         return this;
@@ -311,7 +308,7 @@ public class PeriodicElement implements java.io.Serializable,
         return name;
     }
 
-    public PeriodicElement setName(final String value) {
+    public Element setName(final String value) {
         if (value == null)
             throw new IllegalArgumentException(
                     "Property \"name\" cannot be null!");
@@ -320,7 +317,7 @@ public class PeriodicElement implements java.io.Serializable,
         return this;
     }
 
-    public PeriodicElement(
+    public Element(
             final int number,
             final String name) {
         setNumber(number);

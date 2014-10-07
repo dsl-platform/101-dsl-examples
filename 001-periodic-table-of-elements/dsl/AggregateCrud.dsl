@@ -1,7 +1,7 @@
-module AggregateCrud
+module PeriodicTable
 {
 	// Show-cases active record CRUD functionality.
-	aggregate PeriodicElement(number) {
+	aggregate Element(number) {
 		Int number;
 		String name;
 	}

@@ -1,46 +1,56 @@
-Active Record CRUD - Java
-=========================
+Example 1: Periodic table of elements - Java
+============================================
 
-As explained in [the introduction](../README.md), we will be using the following DSL to demonstrate Active Record CRUD:
+As explained in [the introduction](../README.md), we will be modelig a periodic table of elements to demonstrate Active Record CRUD:
 ```
-module ActiveRecordCrud
+module PeriodicTable
 {
-  aggregate PeriodicElement(number) {
+  aggregate Element(number) {
     Int number;
     String name;
   }
 }
 ```
 
-When compiled with `-target=java_client` and `-settings=active-record` flags, this DSL will create a `PeriodicElement` class which will contain CRUD methods:
+When compiled, this DSL will create a [Element](src/generated/java/com/dslplatform/examples/AggregateCrud/PeriodicElement.java "generated Element class") class. There's a lot of stuff in there, but for this example, only the following methods are interesting:
 
 ```java
-public static PeriodicElement find(final String uri);
-public PeriodicElement create();
-public PeriodicElement update();
-public PeriodicElement delete();
+// Constructors
+public Element()
+public Element(final int number, final String name)
 
-public int getNumber();
-public PeriodicElement setNumber(final int value);
+// Getters and setters
+public int getNumber()
+public Element setNumber(final int value)
+
+public String getName()
+public Element setName(final String value)
+
+// CRUD methods
+public Element create()
+public static Element find(final String uri)
+public Element update()
+public Element delete()
 ```
+
 
 Using Active Record
 -------------------
 
 Start with a nice, dependable element and persist it.
 ```java
-final PeriodicElement element = new PeriodicElement(94, "Plutonium");
+final Element element = new Element(94, "Plutonium");
 element.create();
 ```
-The first line initializes an instance of `PeriodicElement`, and the call to `create()` persists it.
+The first line initializes an instance of `Element`, and the call to `create()` persists it.
 After inserting, our database might look like this:
 
-![Database after inserting](001A-Plutonium-Insert.png?raw=true "Database after inserting")
+![Database after inserting](../plutonium-insert.png?raw=true "Database after inserting")
 
 
 Check that it really is persisted.
 ```java
-final PeriodicElement readElement = PeriodicElement.find("94");
+final Element readElement = Element.find("94");
 assertEquals(readElement, element);
 ```
 
@@ -53,12 +63,12 @@ element.update();
 ```
 This will cause a database row previously occupied by *Plutonium* to switch to *Uranium*:
 
-![Database after updating](001A-Uranium-Update.png?raw=true "Database after updating")
+![Database after updating](../uranium-update.png?raw=true "Database after updating")
 
 
 Check and doublecheck.
 ```java
-final PeriodicElement updatedElement = PeriodicElement.find("92");
+final Element updatedElement = Element.find("92");
 assertEquals(updatedElement, element);
 ```
 
