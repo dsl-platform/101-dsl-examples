@@ -57,6 +57,7 @@ public class Wonder implements java.io.Serializable,
         this.isAncient = isAncient;
     }
 
+    @com.fasterxml.jackson.annotation.JsonIgnore
     public boolean isNewAggregate() {
         return _serviceLocator == null;
     }
@@ -349,5 +350,4 @@ public class Wonder implements java.io.Serializable,
         setNativeNames(nativeNames);
         setIsAncient(isAncient);
     }
-
 }

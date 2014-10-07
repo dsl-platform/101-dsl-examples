@@ -4,8 +4,8 @@
   <groupId>com.dslplatform.examples</groupId>
   <artifactId>002-world-wonders</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>002 - World Wonders</name>
+  <version>0.1.0</version>
+  <name>World Wonders</name>
   <url>https://github.com/dsl-platform/101-dsl-examples/tree/master/002-world-wonders</url>
 
   <dependencies>
@@ -36,6 +36,9 @@
       <resource>
         <directory>${basedir}/src/generated/resources</directory>
       </resource>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+      </resource>
     </resources>
 
     <plugins>
@@ -64,6 +67,29 @@
                 <source>${basedir}/src/generated/resources</source>
               </sources>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.4.1</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.dslplatform.examples.Main</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>

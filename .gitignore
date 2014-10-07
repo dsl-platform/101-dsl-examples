@@ -1,4 +1,7 @@
 .classpath
 .project
 
-target/
+.idea
+.idea_modules
+
+target

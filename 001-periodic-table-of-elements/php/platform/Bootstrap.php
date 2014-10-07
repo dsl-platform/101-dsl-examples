@@ -86,13 +86,12 @@ Error was: '.$code.PHP_EOL;
         exit(255);
     }
 
-
     public static function ensureBootstrapLoaded()
     {
         $curl = curl_init('https://'.self::API_HOST.'/alpha/bootstrap');
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => true,
-	    CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_HTTPHEADER => array(
                 'Accept: application/json; charset=UTF-8'
             )
