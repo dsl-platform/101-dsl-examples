@@ -19,7 +19,8 @@ module ActiveRecordCrud
     Int number;
     String name;
   }
-}```
+}
+```
 
 Here, we have a really simple model of the Periodic Table. Each element has a `number` (which is its unique identifier), and a `name`.
 
