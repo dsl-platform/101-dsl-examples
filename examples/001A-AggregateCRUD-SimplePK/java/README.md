@@ -9,7 +9,8 @@ module ActiveRecordCrud
     Int number;
     String name;
   }
-}```
+}
+```
 
 When compiled with `-target=java_client` and `-settings=active-record` flags, this DSL will create a `PeriodicElement` class which will contain CRUD methods:
 
@@ -33,6 +34,7 @@ element.create();
 ```
 The first line initializes an instance of `PeriodicElement`, and the call to `create()` persists it.
 After inserting, our database might look like this:
+
 ![Database after inserting](001A-Plutonium-Insert.png?raw=true "Database after inserting")
 
 
@@ -50,7 +52,8 @@ element.setName("Uranium");
 element.update();
 ```
 This will cause a database row previously occupied by *Plutonium* to switch to *Uranium*:
-![Database after updating](001A-Uranium-Update.jpg?raw=true "Database after updating")
+
+![Database after updating](001A-Uranium-Update.png?raw=true "Database after updating")
 
 
 Check and doublecheck.
