@@ -64,9 +64,8 @@ public class PeriodicElementTest {
   @Test (expected = IOException.class)
   public void duplicateKey() throws IOException {
     // Initialize two elements with the same number.
-    final int number = r.nextInt(200);
-    final PeriodicElement element1 = new PeriodicElement(number, "");
-    final PeriodicElement element2 = new PeriodicElement(number, "");
+    final PeriodicElement element1 = new PeriodicElement(8, "Oxygen");
+    final PeriodicElement element2 = new PeriodicElement(8, "Unobtanium");
 
     // Try to CREATE them both.
     element1.create();
@@ -78,11 +77,8 @@ public class PeriodicElementTest {
    */
   @Test (expected = IOException.class)
   public void readMissing() throws IOException {
-    // Get a random element number.
-    final int number = r.nextInt(200);
-
-    // Try to READ an element with that number.
-    PeriodicElement.find(String.valueOf(number));
+    // Try to READ an element that doesn't exist.
+    PeriodicElement.find(String.valueOf("-200"));
   }
 
   /**
@@ -91,8 +87,7 @@ public class PeriodicElementTest {
   @Test (expected = IOException.class)
   public void updateMissing() throws IOException {
     // Initialize an element, but do not CREATE it.
-    final int number = r.nextInt(200);
-    final PeriodicElement element = new PeriodicElement(number, "");
+    final PeriodicElement element = new PeriodicElement(-200, "Weirdium");
 
     // Try to UPDATE it.
     element.update();
@@ -104,8 +99,7 @@ public class PeriodicElementTest {
   @Test (expected = IOException.class)
   public void deleteMissing() throws IOException {
     // Initialize an element, but do not CREATE it.
-    final int number = r.nextInt(200);
-    final PeriodicElement element = new PeriodicElement(number, "");
+    final PeriodicElement element = new PeriodicElement(-200, "Nonexistium");
 
     // Try to DELETE it.
     element.delete();
