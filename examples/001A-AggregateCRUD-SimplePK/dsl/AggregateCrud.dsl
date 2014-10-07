@@ -1,12 +1,8 @@
 module AggregateCrud
 {
-	// Show-cases handling of special and strange characters.
-	aggregate Planet(name) {
+	// Show-cases active record CRUD functionality.
+	aggregate PeriodicElement(number) {
+		Int number;
 		String name;
-	}
-
-	// Show-cases length limit on String type.
-	aggregate Asteroid(code) {
-		String(14) code;
 	}
 }
