@@ -77,3 +77,19 @@ Finally, get rid of evidence.
 updatedElement.delete();
 ```
 This will remove *Uranium* from the database.
+
+
+Example application
+-------------------------
+
+The example application is a simple [REPL](http://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop "REPL") which demonstrates how to use CRUD on aggregates.
+
+Easiest way to run the application is using [Maven](http://maven.apache.org/ "Maven").
+To compile, execute:
+```
+mvn clean package
+```
+This will produce a `001-periodic-table-of-elements-0.1.0-jar-with-dependencies.jar` jar in `target` folder. To run it, just execute:
+```
+java -jar 001-periodic-table-of-elements-0.1.0-jar-with-dependencies.jar
+```
