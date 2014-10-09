@@ -4,4 +4,7 @@
 .idea
 .idea_modules
 
+.cache
+.settings/
+
 target
