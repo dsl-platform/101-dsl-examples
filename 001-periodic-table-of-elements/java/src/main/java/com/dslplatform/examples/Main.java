@@ -49,8 +49,9 @@ public class Main {
                     System.out.println("  c = count number of elements");
                     System.out.println("  l = list elements using ASCII art");
                     System.out.println();
-                    System.out.println("Adding elements:");
+                    System.out.println("Adding and editing:");
                     System.out.println("  a = add an element");
+                    System.out.println("  e = edit an element");
                     System.out.println();
                     System.out.println("Import / cleanup:");
                     System.out.println("  x = delete all elements");
@@ -117,6 +118,50 @@ public class Main {
                     startAt = System.currentTimeMillis();
                     newElement.create();
                     printElements(Arrays.asList(newElement));
+                }
+
+                else if (command.equals("e")) {
+                    int number;
+                    Element element;
+                    /* This loop verifies that entered number is an integer, and
+                     * that it exist in the database. */
+                    while (true) {
+                        /* This loop verifies that entered number is an integer. */
+                        while (true) {
+                            System.out.print("Enter the existing element number: ");
+                            final String numberRaw = br.readLine().trim();
+                            try {
+                                number = Integer.parseInt(numberRaw);
+                                break;
+                            } catch (final NumberFormatException e) {
+                                System.out.println("\"" + numberRaw + "\" does not seem to look like a number, please try again!");
+                            }
+                        }
+
+                        System.out.println("Checking if that element already exists...");
+                        /*
+                         * Find on a collection will return an empty collection if all of those elements could not be found.
+                         * Find on a single element will throw an exception if that element could not be found.
+                         * Thus, we issue a find on a collection of just one element, expecting to get 0 or 1 results.
+                         */
+                        final List<Element> lookup = Element.find(Arrays.asList(String.valueOf(number)));
+                        if (lookup.isEmpty()) {
+                            System.out.println("That element does not exist, please enter one that does!");
+                        } else {
+                          element = lookup.get(0);
+                          break;
+                        }
+                    }
+
+                    System.out.print("Enter new name for element " + number + " (" + element.getName() + "): ");
+                    final String newName = br.readLine().trim();
+
+                    element.setName(newName);
+
+                    startAt = System.currentTimeMillis();
+                    element.update();
+                    printElements(Arrays.asList(element));
+
                 }
 
                 else if (command.equals("x")) {
