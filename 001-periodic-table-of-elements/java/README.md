@@ -6,31 +6,31 @@ As explained in [the introduction](../README.md), we will be modelig a periodic 
 module PeriodicTable
 {
   aggregate Element(number) {
-    Int number;
-    String name;
+    Int     number;
+    String  name;
   }
 }
 ```
 
-When compiled, this DSL will create a [Element](src/generated/java/com/dslplatform/examples/AggregateCrud/PeriodicElement.java "generated Element class") class. There's a lot of stuff in there, but for this example, only the following methods are interesting:
+When compiled, this DSL will create the [Element](src/generated/java/com/dslplatform/examples/PeriodicTable/Element.java "generated Element class") class. There's a lot of stuff in there, but for this example, only the following methods are interesting:
 
 ```java
 // Constructors
-public Element()
-public Element(final int number, final String name)
+public Element();
+public Element(final int number, final String name);
 
-// Getters and setters
-public int getNumber()
-public Element setNumber(final int value)
+// Getters and Setters
+public int getNumber();
+public Element setNumber(final int value);
 
-public String getName()
-public Element setName(final String value)
+public String getName();
+public Element setName(final String value);
 
 // CRUD methods
-public Element create()
-public static Element find(final String uri)
-public Element update()
-public Element delete()
+public Element create();
+public static Element find(final String uri);
+public Element update();
+public Element delete();
 ```
 
 
