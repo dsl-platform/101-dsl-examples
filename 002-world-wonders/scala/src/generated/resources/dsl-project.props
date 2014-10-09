@@ -2,6 +2,6 @@
 # These settings can only be used for this project, so do not reuse this file elsewhere.
 #
 username=examples@dsl-platform.com
-project-id=c308f669-c166-4764-b103-111bcb2bf413
-api-url=https://node0.dsl-platform.com/beta_8f47f724f8411f8706781d/
+project-id=fb5e867d-c36f-4f22-9788-4c5cd3bc4e40
+api-url=https://node0.dsl-platform.com/beta_02ebce001e41e5a28251d7/
 package-name=com.dslplatform.examples

@@ -149,7 +149,7 @@ public class Main {
                         System.out.println("Imported " + wonders.size() + " wonders!");
                         printWonders(wonders);
                     } catch (final Exception e) {
-                        System.out.println("Could not import wonders due to duplicates.");
+                        System.out.println("Could not import wonders, probably due to duplicates.");
                         System.out.println("Please drop the existing entries first (x).");
                     }
                 }
@@ -162,7 +162,7 @@ public class Main {
                 final long endAt = System.currentTimeMillis();
                 System.out.println("Took: " + (endAt - startAt) + " ms");
             } catch (final Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(System.out);
             }
         }
     }
