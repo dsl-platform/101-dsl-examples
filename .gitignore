@@ -1,10 +1,17 @@
+## SBT
 .classpath
 .project
 
+## IntelliJ Idea
 .idea
 .idea_modules
 
+## Eclipse
 .cache
 .settings/
 
 target
+
+## Visual Studio
+*.suo
+Debug/
