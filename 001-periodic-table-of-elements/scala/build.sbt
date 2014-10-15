@@ -1,4 +1,4 @@
-name := "Periodic Table of Elements"
+name := "001 [Scala] Periodic Table of Elements"
 
 version := "0.0.0"
 

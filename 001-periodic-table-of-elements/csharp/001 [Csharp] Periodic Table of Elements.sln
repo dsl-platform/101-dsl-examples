@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "001 - PeriodicTableOfElements", "001 - PeriodicTableOfElements.csproj", "{35B1016D-BD26-4C5C-B395-4E5A56A9BB9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "001 [Csharp] PeriodicTableOfElements", "001 [Csharp] PeriodicTableOfElements.csproj", "{35B1016D-BD26-4C5C-B395-4E5A56A9BB9A}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "dsl", "..\dsl\", "{7663DB29-AC33-4215-A5F0-4AFEBB76CCD3}"
 	ProjectSection(WebsiteProperties) = preProject

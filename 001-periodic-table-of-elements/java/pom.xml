@@ -2,10 +2,9 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.dslplatform.examples</groupId>
-  <artifactId>001-periodic-table-of-elements</artifactId>
+  <artifactId>001-java-periodic-table-of-elements</artifactId>
   <packaging>jar</packaging>
   <version>0.1.0</version>
-  <name>Periodic table of elements</name>
   <url>https://github.com/dsl-platform/101-dsl-examples/tree/master/001-periodic-table-of-elements</url>
 
   <dependencies>
@@ -43,11 +42,19 @@
 
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <version>2.9</version>
+        <configuration>
+          <projectNameTemplate>001 [Java] Periodic Table of Elements</projectNameTemplate>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>
