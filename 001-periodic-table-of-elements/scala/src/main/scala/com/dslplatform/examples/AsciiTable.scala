@@ -15,13 +15,8 @@ object AsciiTable {
   def make(table: Seq[Seq[String]]): String = {
     // Number of rows
     val rowCount = table.size
-    // Number of columns (no checking, we assume all rows have same number of
-    // columns.
-    val colCount = table(0).size
     // Maximum text length for each column
     val maxColLengths = table.transpose.map(_.map(_.size).max)
-    // Maximum text length for all cells
-    val totalMax = maxColLengths.max
 
     // String builder which will be filled row by row as we progress through
     // the table.

@@ -2,19 +2,20 @@ package com.dslplatform.examples
 
 import com.dslplatform.api.client.JsonSerialization
 import com.dslplatform.examples.PeriodicTable.Element
+
 import scala.annotation.tailrec
 import scala.io.StdIn.readLine
+import scala.concurrent._
+import scala.concurrent.duration._
 
-object Main {
-  def main(args: Array[String]) {
-    new Main().runREPL()
-    shutdown()
-    println("Program exiting.")
-  }
+object Main extends App {
+  new Main().runREPL()
+
+  println("Program exiting!")
+  sys.exit(0)
 }
 
-
-class Main() {
+class Main {
   private val jsonSerialization = locator.resolve[JsonSerialization]
 
   // Timer is used to measure duration of commands.
@@ -23,7 +24,7 @@ class Main() {
   private val timer = new Timer
 
   /** Prints a list of elements using ASCII table */
-  def printElements(elementList: Seq[Element]) {
+  def printElements(elementList: Seq[Element]): Unit = {
     val headerTable = Seq(Seq("Number", "Name"))
     val elementTable = elementList map { element =>
       Seq(element.number.toString, element.name)
@@ -38,12 +39,12 @@ class Main() {
    *  Runs until 'q' is entered, or an error occurs
    */
   @tailrec
-  final def runREPL() {
+  final def runREPL(): Unit = {
     val isEnd = try {
       // Read clean the command.
       print("Enter command (h for help): ")
       val line = readLine()
-      val command = line.trim()
+      val command = line.trim
 
       // Start the timer.
       timer.reset()
@@ -93,15 +94,12 @@ class Main() {
     // If end, return, else call REPL again.
     if (!isEnd) {
       runREPL
-    } else {
-      new RuntimeException().printStackTrace()
-      ()
     }
   }
 
 
   /** Prints the help. */
-  private def execHelp() {
+  private def execHelp(): Unit = {
     println(
         """|Usage:
            |  h = display this help
@@ -121,9 +119,8 @@ class Main() {
            |""".stripMargin)
   }
 
-
   /** Counts number of Elements stored in the database. */
-  private def execCount() {
+  private def execCount(): Unit = {
     val count = Element.count
     if (count == 1) {
         println("There is only 1 element")
@@ -132,16 +129,14 @@ class Main() {
     }
   }
 
-
   /** Prints a list of stored elements. */
-  private def execList() {
+  private def execList(): Unit = {
     val elements = Element.findAll
     printElements(elements)
   }
 
-
   /** Adds an element to the database. */
-  private def execAdd() = {
+  private def execAdd(): Unit = {
     // This returns an integer which does not correspond to any element number
     // in the database.
     val number = readElementNumber("Enter the new element number: ", false)
@@ -156,12 +151,11 @@ class Main() {
 
     // Finally, create and persist the new element (and print it).
     val newElement = Element(number, name)
-    newElement.create
+    newElement.create()
     printElements(Seq(newElement))
   }
 
-
-  private def execEdit() = {
+  private def execEdit(): Unit = {
     // This returns an integer which corresponds to an element number in the
     // database.
     val number = readElementNumber("Enter the existing element number: ", true)
@@ -180,31 +174,40 @@ class Main() {
 
     // Finally, update and persist the new element (and print it).
     element.name = newName
-    element.update
+    element.update()
     printElements(Seq(element))
   }
 
-
   /** Deletes all elements from the database. */
-  private def execDeleteAll() {
+  private def execDeleteAll(): Unit = {
     // In order to delete all entries, we simply do a search for all of them and
     // then delete them.
     val elements = Element.findAll
-
+    
     // NOTE: This will delete each element individually, and send a separate
     // query towards the database for each element. For 112 elements, it can
     // take a while.
     // See example 2: World Wonders for a better way to delete multiple
     // aggregates.
-    elements foreach { element =>
-      element.delete
+    val deleteFutures = elements map { element => 
+      println(s"Deleting ${element.number} (${element.name}) ...")
+      Future {
+        try {
+          element.delete()
+        }
+        catch {
+          case _: Throwable => 
+            println("Could not delete ${element.number} (${element.name})!")
+        }
+      }
     }
+    
+    Await.result(Future.sequence(deleteFutures), 30 seconds)
     printElements(Seq.empty)
   }
 
-
   /** Reads a list of elements form a resource file, and inserts them all. */
-  private def execInsert() {
+  private def execInsert(): Unit = {
     // Get the resource stream.
     val is = Main.getClass.getResourceAsStream("/elements.json")
 
@@ -214,26 +217,30 @@ class Main() {
     val resource = Iterator continually is.read takeWhile (-1 !=) map (_.toByte) toArray
 
     // This deserializes the resource byte array into a Array of elements.
-    val elements = jsonSerialization.deserialize[Array[Element]](resource)
-
-    try {
-      // NOTE: This will insert each element individually, and send a separate
-      // query towards the database for each element. For 112 elements, it can
-      // take a while.
-      // See example 2: World Wonders for a better way to insert multiple
-      // aggregates.
-      elements foreach { element =>
-        element.create
+    val elements = jsonSerialization.deserializeList[Element](resource)
+    println(s"About to insert ${elements.size} elements, one by one ...")
+  
+    // NOTE: This will insert each element individually, and send a separate
+    // query towards the database for each element. For 112 elements, it can
+    // take a while.
+    // See example 2: World Wonders for a better way to insert multiple
+    // aggregates.
+    val insertFutures = elements map { element => 
+      println(s"Inserting element #${element.number} (${element.name}) ...")
+      Future { 
+        try {
+          element.create()
+        } catch {
+          case e: Exception =>
+            println(s"Could not import #${element.number}!")
+        }
       }
-      println(s"Imported ${ elements.size } elements!")
-      printElements(elements)
-    } catch {
-      case e: Exception =>
-        println("Could not import elements, probably due to duplicates.")
-        println("Please drop the existing entries first (x).")
     }
-  }
 
+    Await.result(Future.sequence(insertFutures), 30 seconds)
+    println(s"Imported ${ elements.size } elements!")
+    printElements(elements)
+  }
 
   /** A helper function which reads user input until:
    *    1) A valid integer is entered
@@ -274,7 +281,6 @@ class Main() {
         number
     }
   }
-
 
   /** A heper method which reads user input until a valid integer is entered. */
   @tailrec

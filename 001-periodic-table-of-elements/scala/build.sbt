@@ -22,5 +22,3 @@ libraryDependencies ++= Seq(
   "com.dslplatform" %% "dsl-client-scala" % "0.9.0"
 , "ch.qos.logback" % "logback-classic" % "1.1.2"
 )
-
-EclipseKeys.createSrc := EclipseCreateSrc.Default + EclipseCreateSrc.Resource
