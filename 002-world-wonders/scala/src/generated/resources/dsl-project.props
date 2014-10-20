@@ -1,7 +1,0 @@
-# This configuration file is used for Boostrap initialization.
-# These settings can only be used for this project, so do not reuse this file elsewhere.
-#
-username=examples@dsl-platform.com
-project-id=fb5e867d-c36f-4f22-9788-4c5cd3bc4e40
-api-url=https://node0.dsl-platform.com/beta_02ebce001e41e5a28251d7/
-package-name=com.dslplatform.examples
