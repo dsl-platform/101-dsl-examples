@@ -9,8 +9,10 @@
 ## Eclipse
 .cache
 .settings/
+bin/
 
 target
+*.log
 
 ## Visual Studio
 *.suo

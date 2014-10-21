@@ -1,0 +1,16 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+
+GET     /rest         controllers.Rest.findAll
+GET     /rest/:id     controllers.Rest.find(id: String)
+
+PUT     /rest         controllers.Rest.updateAll
+PUT     /rest/:id     controllers.Rest.update(id: String)
+
+POST    /rest         controllers.Rest.create
+
+DELETE  /rest         controllers.Rest.deleteAll
+DELETE  /rest/:id     controllers.Rest.delete(id: String)
