@@ -2,14 +2,11 @@ package com.dslplatform.examples
 
 import WorldWonders.Wonder
 
-import com.dslplatform.api.client.Bootstrap
 import com.dslplatform.api.patterns.PersistableRepository
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 object Crud {
-  private val locator = Bootstrap.init(getClass.getResourceAsStream("/dsl-project.props"))
-  private val wonderRepository = locator.resolveUnsafe[PersistableRepository[Wonder]]
+  private val wonderRepository = locator.resolve[PersistableRepository[Wonder]]
 
   // #####=====-----> CREATE <-----=====#####
   def create(wonder: Wonder): Future[Wonder] =
@@ -17,7 +14,7 @@ object Crud {
       wonder
     }
 
-  def createList(wonderList: List[Wonder]): Future[List[Wonder]] =
+  def createList(wonderList: Array[Wonder]): Future[Array[Wonder]] =
     wonderRepository.insert(wonderList) map { _ =>
       wonderList
     }
@@ -26,11 +23,11 @@ object Crud {
   def read(uri: String): Future[Wonder] =
     wonderRepository.find(uri)
 
-  def readList(uriList: List[String]): Future[List[Wonder]] =
-    wonderRepository.find(uriList).map(_.toList)
+  def readList(uriList: Array[String]): Future[Array[Wonder]] =
+    wonderRepository.find(uriList).map(_.toArray)
 
-  def readAll(): Future[List[Wonder]] =
-    wonderRepository.search(None).map(_.toList)
+  def readAll(): Future[Array[Wonder]] =
+    wonderRepository.search(None).map(_.toArray)
 
   // #####=====-----> UPDATE <-----=====#####
   def update(updatedWonder: Wonder): Future[Wonder] =
@@ -38,7 +35,7 @@ object Crud {
       updatedWonder
     }
 
-  def updateList(updatedWonderList: List[Wonder]): Future[List[Wonder]] =
+  def updateList(updatedWonderList: Array[Wonder]): Future[Array[Wonder]] =
     wonderRepository.update(updatedWonderList) map { _ =>
       updatedWonderList
     }
@@ -49,7 +46,7 @@ object Crud {
       ()
     }
 
-  def deleteList(wonderList: List[Wonder]): Future[Unit] =
+  def deleteList(wonderList: Array[Wonder]): Future[Unit] =
     wonderRepository.delete(wonderList) map { _ =>
       ()
     }

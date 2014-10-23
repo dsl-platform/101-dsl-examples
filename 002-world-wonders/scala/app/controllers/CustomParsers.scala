@@ -1,15 +1,11 @@
 package controllers
 
-import com.dslplatform.api.client.JsonSerialization
 import play.api.libs.iteratee.Iteratee
 import play.api.mvc.{ BodyParser, BodyParsers, RequestHeader, Results }
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.reflect.ClassTag
 
 trait CustomParsers extends BodyParsers {
-  protected val jsonSerialization: JsonSerialization
-
   def platformJson[T : ClassTag]: BodyParser[T] = parse.when(
     predicate = isMime("application/json"),
     parser    = tolerantPlatformJson,
