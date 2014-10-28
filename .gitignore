@@ -17,3 +17,6 @@ target
 ## Visual Studio
 *.suo
 Debug/
+
+
+*.cache
