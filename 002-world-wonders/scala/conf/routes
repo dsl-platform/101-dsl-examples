@@ -1,8 +1,8 @@
+GET       /wonder    controllers.Rest.read(URI: String)
+#POST      /wonder    controllers.Rest.create()
+#PUT       /wonder    controllers.Rest.replace(URI: String)
+#DELETE    /wonder    controllers.Rest.delete(URI: String)
+
 GET       /wonders    controllers.Rest.readAll
 #PUT       /wonders    controllers.Rest.replaceAll()
 #DELETE    /wonders    controllers.Rest.deleteAll()
-
-#GET       /wonders    controllers.Rest.read(URI: String)
-#POST      /wonders    controllers.Rest.create()
-#PUT       /wonders    controllers.Rest.replace(URI: String)
-#DELETE    /wonders    controllers.Rest.delete(URI: String)

@@ -1,5 +1,7 @@
 packAutoSettings
 
+Revolver.settings
+
 name := "002 [Scala] World Wonders"
 
 version := "0.1.0"

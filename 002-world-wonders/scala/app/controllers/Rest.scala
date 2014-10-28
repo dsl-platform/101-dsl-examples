@@ -12,6 +12,12 @@ object Rest extends Controller
   private lazy val wonderParser      = parseObject[Wonder]
   private lazy val wonderArrayParser = parseIndexedSeq[Wonder]
 
+  def read(URI: String) = Action.async {
+    WonderCrud.read(URI) map { wonder =>
+      Ok(wonder)
+    }
+  }
+
   def readAll = Action.async {
     WonderCrud.readAll map { wonders =>
       Ok(wonders)
