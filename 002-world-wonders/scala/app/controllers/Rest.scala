@@ -1,36 +1,26 @@
 package controllers
 
-import com.dslplatform.examples.Crud
+import models._
+import WorldWonders.Wonder
+
 import play.api.mvc.{ Action, Controller }
-import com.dslplatform.examples.WorldWonders.Wonder
 
 object Rest extends Controller
     with CustomParsers
     with CustomWriteables {
-  private val wonderParser     = platformJson[Wonder]
-  private val wonderListParser = platformJson[Array[Wonder]]
 
-  def findAll = Action.async {
-    Crud.readAll map { wonderList =>
-      Ok(wonderList)
+  private lazy val wonderParser      = parseObject[Wonder]
+  private lazy val wonderArrayParser = parseIndexedSeq[Wonder]
+
+  def read(URI: String) = Action.async {
+    WonderCrud.read(URI) map { wonder =>
+      Ok(wonder)
     }
   }
 
-  def updateList = Action.async(wonderListParser) { request =>
-    Crud.updateList(request.body) map { wonderList =>
-      Ok(wonderList)
-    }
-  }
-
-  def createList = Action.async(wonderListParser) { request =>
-    Crud.createList(request.body) map { wonderList =>
-      Ok(wonderList)
-    }
-  }
-
-  def deleteList = Action.async(wonderListParser) { request =>
-    Crud.deleteList(request.body) map { _ =>
-      Ok
+  def readAll = Action.async {
+    WonderCrud.readAll map { wonders =>
+      Ok(wonders)
     }
   }
 }

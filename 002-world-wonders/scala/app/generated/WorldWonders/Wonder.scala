@@ -1,4 +1,4 @@
-package com.dslplatform.examples.WorldWonders
+package models.WorldWonders
 
 import com.dslplatform.api.patterns._
 import com.dslplatform.api.client._
@@ -18,7 +18,7 @@ class Wonder @com.fasterxml.jackson.annotation.JsonIgnore() private(
     _URI
   }
 
-  private [examples] def URI_= (value: String) {
+  private [models] def URI_= (value: String) {
     _URI = value
 
   }

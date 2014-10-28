@@ -3,9 +3,9 @@
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="content-type">
     <title>Periodic Table of Elements</title>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">    
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -26,8 +26,8 @@
 <?php foreach ($elements as $element): ?>
     <tr>
       <td class="element-number text-right"><?php echo $element->number; ?></td>
-      <td class="element-name text-center"><?php 
-        echo htmlspecialchars($element->name); 
+      <td class="element-name text-center"><?php
+        echo htmlspecialchars($element->name);
       ?></td>
     </tr>
 <?php endforeach; ?>
@@ -51,9 +51,9 @@ $(function(){
   }
 
   $('.element-number').on('validate', function(evt, value) {
-    return isValidElementNumber(value);   
+    return isValidElementNumber(value);
   });
-  
+
   $('.element-number').on('change', function(evt, value) {
     if (!isValidElementNumber(value)) return false;
 
@@ -69,30 +69,30 @@ $(function(){
       error: function(result) {
         console.log(result);
       }
-    })    
+    })
   });
 
   /*
-  $('.el-row').hover(function(){    
+  $('.el-row').hover(function(){
   });
-  $('span.el-name').click(function(){    
+  $('span.el-name').click(function(){
 
-  
-  
-  
+
+
+
     var div = $('<div/>');
-    
+
     var input = $('<input type="text"/>');
     input.val($(this).text());
-    
+
     var button = $('<input type="text"/>');
-    
+
     div.append(input);
     div.append(button);
-    
+
     $(this).replaceWith(input);
   });
-  
+
   */
 });
 </script>

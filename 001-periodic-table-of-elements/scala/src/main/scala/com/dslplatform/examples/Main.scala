@@ -183,25 +183,25 @@ class Main {
     // In order to delete all entries, we simply do a search for all of them and
     // then delete them.
     val elements = Element.findAll
-    
+
     // NOTE: This will delete each element individually, and send a separate
     // query towards the database for each element. For 112 elements, it can
     // take a while.
     // See example 2: World Wonders for a better way to delete multiple
     // aggregates.
-    val deleteFutures = elements map { element => 
+    val deleteFutures = elements map { element =>
       println(s"Deleting ${element.number} (${element.name}) ...")
       Future {
         try {
           element.delete()
         }
         catch {
-          case _: Throwable => 
+          case _: Throwable =>
             println("Could not delete ${element.number} (${element.name})!")
         }
       }
     }
-    
+
     Await.result(Future.sequence(deleteFutures), 30 seconds)
     printElements(Seq.empty)
   }
@@ -219,15 +219,15 @@ class Main {
     // This deserializes the resource byte array into a Array of elements.
     val elements = jsonSerialization.deserializeList[Element](resource)
     println(s"About to insert ${elements.size} elements, one by one ...")
-  
+
     // NOTE: This will insert each element individually, and send a separate
     // query towards the database for each element. For 112 elements, it can
     // take a while.
     // See example 2: World Wonders for a better way to insert multiple
     // aggregates.
-    val insertFutures = elements map { element => 
+    val insertFutures = elements map { element =>
       println(s"Inserting element #${element.number} (${element.name}) ...")
-      Future { 
+      Future {
         try {
           element.create()
         } catch {
