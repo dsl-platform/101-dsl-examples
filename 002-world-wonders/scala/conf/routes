@@ -1,7 +1,8 @@
-# Routes
-# This file defines all application routes (Higher priority routes first)
+GET       /wonders    controllers.Rest.readAll
+#PUT       /wonders    controllers.Rest.replaceAll()
+#DELETE    /wonders    controllers.Rest.deleteAll()
 
-GET       /rest    controllers.Rest.findAll
-PUT       /rest    controllers.Rest.updateList
-POST      /rest    controllers.Rest.createList
-DELETE    /rest    controllers.Rest.deleteList
+#GET       /wonders    controllers.Rest.read(URI: String)
+#POST      /wonders    controllers.Rest.create()
+#PUT       /wonders    controllers.Rest.replace(URI: String)
+#DELETE    /wonders    controllers.Rest.delete(URI: String)

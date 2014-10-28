@@ -4,4 +4,4 @@
 username=examples@dsl-platform.com
 project-id=fb5e867d-c36f-4f22-9788-4c5cd3bc4e40
 api-url=https://node0.dsl-platform.com/beta_02ebce001e41e5a28251d7/
-package-name=com.dslplatform.examples
+package-name=models
