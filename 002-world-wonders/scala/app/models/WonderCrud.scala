@@ -16,9 +16,9 @@ object WonderCrud {
   def create(wonders: Seq[Wonder]): Future[IndexedSeq[String]] =
     wonderRepository.insert(wonders)
 
-  /** Find existing wonder by name */
-  def read(name: String): Future[Wonder] =
-    wonderRepository.find(name)
+  /** Find existing wonder by name (URI) */
+  def read(uri: String): Future[Wonder] =
+    wonderRepository.find(uri)
 
   /** Find all existing wonders */
   def readAll: Future[IndexedSeq[Wonder]] =
