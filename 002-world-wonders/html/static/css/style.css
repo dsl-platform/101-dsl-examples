@@ -40,3 +40,6 @@ a.table-custom tbody tr th:hover {
   border: 5px solid #fff;
   box-shadow: 0 0 5px #bbb;
 }
+.label {
+  margin: 5px;
+}
