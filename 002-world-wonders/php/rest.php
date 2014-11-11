@@ -1,4 +1,6 @@
 <?php
+use WorldWonders\WonderJsonConverter;
+
 // SLIM INIT
 require_once __DIR__.'/Slim/Slim.php';
 \Slim\Slim::registerAutoloader();
@@ -19,8 +21,9 @@ $app->run();
 // REST
 function restFindAll() {
     global $app;
-    $response = crudFindAll();
-    $app->response->setBody($response);
+    $resWonders = crudFindAll();
+    $resJson    = WonderJsonConverter::toJson($resWonders);
+    $app->response->setBody($resJson);
 }
 
 function restDeleteAll() {
@@ -31,27 +34,33 @@ function restDeleteAll() {
 
 function restFindWonder($uri) {
     global $app;
-    $response = crudFindWonder($uri);
-    $app->response->setBody($response);
+    $resWonder = crudFindWonder($uri);
+    $resJson   = WonderJsonConverter::toJson($resWonder);
+    $app->response->setBody($resJson);
 }
 
 function restUpdateWonder($uri) {
     global $app;
-    $request = $app->request->getBody();
-    $response = crudUpdateWonder($uri, $request);
-    $app->response->setBody($response);
+    $reqJson   = $app->request->getBody();
+    $reqWonder = WonderJsonConverter::fromJson($reqJson);
+    $resWonder = crudUpdateWonder($uri, $reqWonder);
+    $resJson   = WonderJsonConverter::toJson($resWonder);
+    $app->response->setBody($resJson);
 }
 
 function restCreateWonder() {
     global $app;
-    $request = $app->request->getBody();
-    $response = crudCreateWonder($request);
-    $app->response->setBody($response);
+    $reqJson   = $app->request->getBody();
+    $reqWonder = WonderJsonConverter::fromJson($reqJson);
+    $resWonder = crudCreateWonder($reqWonder);
+    $resJson   = WonderJsonConverter::toJson($resWonder);
+    $app->response->setBody($resJson);
 }
 
 function restDeleteWonder($uri) {
     global $app;
-    $response = crudDeleteWonder($uri);
-    $app->response->setBody($response);
+    $resWonder = crudDeleteWonder($uri);
+    $resJson   = WonderJsonConverter::toJson($resWonder);
+    $app->response->setBody($resJson);
 }
 ?>

@@ -7,42 +7,38 @@ use WorldWonders\WonderJsonConverter;
 
 // PLATFORM INIT
 define('NGS_DSL_PATH',  __DIR__.'/../dsl');
+define('NGS_UPDATE', false);
 require_once __DIR__.'/platform/Bootstrap.php';
 
 $crudProxy = CrudProxy::instance();
 $domainProxy = DomainProxy::instance();
-$standardProxt = StandardProxy::instance();
+$standardProxy = StandardProxy::instance();
 
 // CRUD
-function crudCreateWonder($json) {
+function crudCreateWonder($wonder) {
     global $crudProxy;
-    $wonder = WonderJsonConverter::fromJson($json);
     return $crudProxy->create($wonder);
 }
 
 function crudFindAll() {
     global $domainProxy;
-    $wonders = $domainProxy->search('WorldWonders\\Wonder');
-    return WonderJsonConverter::toJson($wonders);
+    return $domainProxy->search('WorldWonders\\Wonder');
 }
 
 function crudFindWonder($uri) {
     global $crudProxy;
-    $wonder = $crudProxy->read('WorldWonders\\Wonder', $uri);
-    return WonderJsonConverter::toJson($wonder);
+    return $crudProxy->read('WorldWonders\\Wonder', $uri);
 }
 
-function crudUpdateWonder($uri, $json) {
+function crudUpdateWonder($uri, $wonder) {
     global $crudProxy;
-    $wonder = WonderJsonConverter::fromJson($json);
     //$wonder->setURI($uri);  WHAT DO TO WITH URI HERE?
-    $updatedWonder = $crudProxy->update($wonder);
-    return WonderJsonConverter::toJson($updatedWonder);
+    return $crudProxy->update($wonder);
 }
 
 function crudDeleteWonder($uri) {
     global $crudProxy;
-    return $domainProxy->delete('WorldWonders\\Wonder', $uri);
+    return $crudProxy->delete('WorldWonders\\Wonder', $uri);
 }
 
 function crudDeleteAll() {
