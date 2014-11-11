@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>101 DSL Examples | World Wonders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link media="all" type="text/css" rel="stylesheet" href="static/css/bootstrap-3.2.0.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="static/css/bootstrap-switch.css">
+  <link media="all" type="text/css" rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+  <section class="main">
+    <div class="container">
+      <h1>World Wonders</h1>
+      <div class="table-wrapper">
+        <table id="mainTable" class="table table-striped table-custom">
+          <thead>
+            <tr>
+              <th>Ancient</th>
+              <th>Name</th>
+              <th>Native Names</th>
+              <th>Image</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="td-ancient">
+                <input name="switch" type="checkbox">
+              </td>
+              <td>
+                Giza Necropolis
+              </td>
+              <td class="td-native">
+                <span class="label label-default">أهرامات الجيزة</span>
+              </td>
+              <td class="td-image">
+                <img class="image-border js-tooltip" data-toggle="tooltip" data-placement="top" title="Click to change url of image" alt="Pyramide Kheops" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/100px-Kheops-Pyramid.jpg"  height="70">
+              </td>
+            </tr>
+            <tr>
+              <td class="td-ancient">
+                <input name="switch" type="checkbox" checked="checked">
+              </td>
+              <td>
+                Great Wall of China
+              </td>
+              <td class="td-native">
+                <span class="label label-default">万里长城</span>
+                <span class="label label-default">Wànlǐ Chángchéng</span>
+              </td>
+              <td class="td-image">
+                <img class="image-border js-tooltip" data-toggle="tooltip" data-placement="top" title="Click to change url of image" alt="Pyramide Kheops" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/100px-Kheops-Pyramid.jpg" height="70">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section><!-- end of section main -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+  <script src="static/js/bootstrap-3.2.0.min.js"></script>
+  <script src="static/js/mindmup-editabletable.js"></script>
+  <script src="static/js/bootstrap-switch.js"></script>
+  <script src="static/js/functions.js"></script>
+</body>
+</html>
