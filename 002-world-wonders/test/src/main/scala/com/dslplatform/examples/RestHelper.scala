@@ -30,6 +30,11 @@ class RestHelper(val host: String, val port: Int) {
     send(svc)
   }
 
+  def options(path: List[String]): Response = {
+    val svc = (baseSvc /# path).OPTIONS
+    send(svc)
+  }
+
   private def send(svc: Req): Response = {
     val r = Http(svc > respParser)
     Await.result(r, 10 seconds)

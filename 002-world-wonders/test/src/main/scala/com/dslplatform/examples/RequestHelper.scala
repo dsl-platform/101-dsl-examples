@@ -43,6 +43,13 @@ class RequestHelper[T: ClassTag](val host: String, val port: Int) {
     }
   }
 
+  def options(path: List[String]): String = {
+    val response = exec("options") {
+      rest.options(path)
+    }
+    new String(response.body)
+  }
+
   private def execAndDeserialize(name: String)(f: => Response): T = {
     val response = exec(name)(f)
     try {

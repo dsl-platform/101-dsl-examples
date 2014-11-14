@@ -22,7 +22,7 @@ class RandHelper {
 
   def nextIsAncient() = r.nextBoolean()
 
-  def nextItem() = {
+  def nextWonder() = {
     val maxCount = 5
     Wonder(
         englishName = nextName(),

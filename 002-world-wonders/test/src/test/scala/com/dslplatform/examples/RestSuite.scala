@@ -2,108 +2,81 @@ package com.dslplatform.examples
 
 import WorldWonders.Wonder
 
-import com.typesafe.config.ConfigFactory
-import org.scalactic.Equality
-import org.scalatest.{ FeatureSpec, Matchers }
-
-object RestSuite extends FeatureSpec with Matchers {
-  private val config = ConfigFactory.load()
-
-  val Host = config.getString("host")
-  val Port = config.getInt("port")
-  val BaseURL = "wonders"
-
-  implicit val itemEquality = new Equality[Wonder] {
-    override def areEqual(left: Wonder, right: Any): Boolean =
-      right match {
-        case item: Wonder =>
-          (left.URI         == item.URI) &&
-          (left.nativeNames == item.nativeNames) &&
-          (left.isAncient   == item.isAncient) &&
-          (left.englishName == item.englishName)
-        case _ =>
-          false
-    }
-  }
-}
-
-class RestSuite extends FeatureSpec with Matchers {
-  import RestSuite._
-
+class RestSuite extends SuiteBase {
   val rand = new RandHelper()
   val rest = new RequestHelper[Wonder](Host, Port)
 
   feature("Find") {
-    scenario("Read one (item is created and then serched for)") {
-      val item        = rand.nextItem()
-      val createdItem = rest.post(BaseURL, item)
-      val foundItem   = rest.get(BaseURL / createdItem.URI)
-      createdItem shouldEqual foundItem
+    scenario("Read one (wonder is created and then serched for)") {
+      val wonder        = rand.nextWonder()
+      val createdWonder = rest.post(BaseURL, wonder)
+      val foundWonder   = rest.get(BaseURL / createdWonder.URI)
+      createdWonder shouldEqual foundWonder
     }
 
-    scenario("Find all items (several items are created, and then all are searched for)") {
-      val itemList        = rand.nextItem repeated 5
-      val createdItemList = itemList.map( i => rest.post(BaseURL, i))
-      val allItemList     = rest.getList(BaseURL)
-      createdItemList foreach { createdItem =>
-        allItemList should contain (createdItem)
+    scenario("Find all wonders (several wonders are created, and then all are searched for)") {
+      val wonderList        = rand.nextWonder repeated 5
+      val createdWonderList = wonderList.map( i => rest.post(BaseURL, i))
+      val allWonderList     = rest.getList(BaseURL)
+      createdWonderList foreach { createdWonder =>
+        allWonderList should contain (createdWonder)
       }
     }
 
-    scenario("Find missing (a non-exitent item is searched for)") {
-      val item = rand.nextItem()
+    scenario("Find missing (a non-exitent wonder is searched for)") {
+      val wonder = rand.nextWonder()
       val ex = the [Exception] thrownBy {
-        rest.get(BaseURL / item.URI)
+        rest.get(BaseURL / wonder.URI)
       }
       ex.getMessage should include ("""NGS\Client\Exception\NotFoundException""")
     }
   }
 
   feature("Update") {
-    scenario("Update one (item is created and then updated)") {
-      val item         = rand.nextItem()
-      val createdItem  = rest.post(BaseURL, item)
-      createdItem.englishName = rand.nextName()
-      val updatedItem  = rest.put(BaseURL / createdItem.URI, createdItem)
-      val verifiedItem = rest.get(BaseURL / updatedItem.URI)
-      createdItem should not equal updatedItem
-      updatedItem shouldEqual verifiedItem
+    scenario("Update one (wonder is created and then updated)") {
+      val wonder        = rand.nextWonder()
+      val createdWonder = rest.post(BaseURL, wonder)
+      createdWonder.englishName = rand.nextName()
+      val updatedWonder  = rest.put(BaseURL / createdWonder.URI, createdWonder)
+      val verifiedWonder = rest.get(BaseURL / updatedWonder.URI)
+      createdWonder should not equal updatedWonder
+      updatedWonder shouldEqual verifiedWonder
     }
 
-    scenario("Update missing (a non-exitent item is updated)") {
-      val item = rand.nextItem()
+    scenario("Update missing (a non-exitent wonder is updated)") {
+      val wonder = rand.nextWonder()
       val ex = the [Exception] thrownBy {
-        rest.put(BaseURL / item.URI, item)
+        rest.put(BaseURL / wonder.URI, wonder)
       }
       ex.getMessage should include ("""NGS\Client\Exception\InvalidRequestException""")
     }
   }
 
   feature("Create") {
-    scenario("Create one (item is created and then serched for)") {
-      val item        = rand.nextItem()
-      val createdItem = rest.post(BaseURL, item)
-      val foundItem   = rest.get(BaseURL / createdItem.URI)
-      createdItem shouldEqual foundItem
+    scenario("Create one (wonder is created and then serched for)") {
+      val wonder        = rand.nextWonder()
+      val createdWonder = rest.post(BaseURL, wonder)
+      val foundWonder   = rest.get(BaseURL / createdWonder.URI)
+      createdWonder shouldEqual foundWonder
     }
   }
 
   feature("Delete") {
-    scenario("Delete one (item is created and then deleted and then searched for)") {
-      val item        = rand.nextItem()
-      val createdItem = rest.post(BaseURL, item)
-      val deletedItem = rest.delete(BaseURL / createdItem.URI)
-      deletedItem shouldEqual createdItem
+    scenario("Delete one (wonder is created and then deleted and then searched for)") {
+      val wonder        = rand.nextWonder()
+      val createdWonder = rest.post(BaseURL, wonder)
+      val deletedWonder = rest.delete(BaseURL / createdWonder.URI)
+      deletedWonder shouldEqual createdWonder
       val ex = the [Exception] thrownBy {
-        val a = rest.get(BaseURL / deletedItem.URI)
+        val a = rest.get(BaseURL / deletedWonder.URI)
       }
       ex.getMessage should include ("""NGS\Client\Exception\NotFoundException""")
     }
 
-    scenario("Delete all (all items are deleted, and then searched for)") {
-      val deletedItemlList = rest.deleteList(BaseURL)
-      val foundItemList    = rest.getList(BaseURL)
-      foundItemList should have size 0
+    scenario("Delete all (all wonders are deleted, and then searched for)") {
+      val deletedWonderlList = rest.deleteList(BaseURL)
+      val foundWonderList    = rest.getList(BaseURL)
+      foundWonderList should have size 0
     }
   }
 }
