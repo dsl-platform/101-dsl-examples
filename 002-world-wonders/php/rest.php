@@ -100,8 +100,8 @@ function restOptions() {
 // UTIL
 function getRandomImage() {
     $reqURL = 'http://commons.wikimedia.org/w/api.php?continue=&format=json&action=query&generator=random&prop=imageinfo&iiprop=url&iiurlwidth=200';
-    //$resJson    = file_get_contents($reqURL);
-    $resJson    = '{"batchcomplete":"","query":{"pages":{"22459639":{"pageid":22459639,"ns":6,"title":"File:Port Townsend, WA - First Presbyterian Church 04.jpg","imagerepository":"local","imageinfo":[{"thumburl":"http://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Port_Townsend%2C_WA_-_First_Presbyterian_Church_04.jpg/200px-Port_Townsend%2C_WA_-_First_Presbyterian_Church_04.jpg","thumbwidth":200,"thumbheight":301,"url":"http://upload.wikimedia.org/wikipedia/commons/c/cc/Port_Townsend%2C_WA_-_First_Presbyterian_Church_04.jpg","descriptionurl":"http://commons.wikimedia.org/wiki/File:Port_Townsend,_WA_-_First_Presbyterian_Church_04.jpg"}]}}}}';
+    $resJson    = file_get_contents($reqURL);
+    //$resJson    = '{"batchcomplete":"","query":{"pages":{"22459639":{"pageid":22459639,"ns":6,"title":"File:Port Townsend, WA - First Presbyterian Church 04.jpg","imagerepository":"local","imageinfo":[{"thumburl":"http://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Port_Townsend%2C_WA_-_First_Presbyterian_Church_04.jpg/200px-Port_Townsend%2C_WA_-_First_Presbyterian_Church_04.jpg","thumbwidth":200,"thumbheight":301,"url":"http://upload.wikimedia.org/wikipedia/commons/c/cc/Port_Townsend%2C_WA_-_First_Presbyterian_Church_04.jpg","descriptionurl":"http://commons.wikimedia.org/wiki/File:Port_Townsend,_WA_-_First_Presbyterian_Church_04.jpg"}]}}}}';
     $imageInfo  = json_decode($resJson, true);
     $pages      = $imageInfo['query']['pages'];
     $pageKey    = key($pages);
@@ -110,7 +110,7 @@ function getRandomImage() {
     if (array_key_exists('imageinfo', $page)) {
         $imageURL = $page['imageinfo'][0]['thumburl'];
         $resArr = array(
-            'title' => $imageTitle,
+            'title' => $imageTitle.' [REPLACE ME]',
             'url'   => $imageURL
         );
         $resJSON = json_encode($resArr);
