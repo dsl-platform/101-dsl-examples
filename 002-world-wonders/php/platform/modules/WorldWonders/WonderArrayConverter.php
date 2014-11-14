@@ -9,7 +9,7 @@ require_once __DIR__.'/Wonder.php';
  * Converts an object of class WorldWonders\Wonder into a simple array and backwards.
  *
  * @package WorldWonders
- * @version 1.0.0.16886
+ * @version 1.0.0.42921
  */
 abstract class WonderArrayConverter
 {/**
@@ -31,9 +31,10 @@ abstract class WonderArrayConverter
     {
         $ret = array();
         $ret['URI'] = $item->URI;
+        $ret['isAncient'] = $item->isAncient;
         $ret['englishName'] = $item->englishName;
         $ret['nativeNames'] = $item->nativeNames;
-        $ret['isAncient'] = $item->isAncient;
+        $ret['imageURL'] = $item->imageURL;
         return $ret;
     }
 

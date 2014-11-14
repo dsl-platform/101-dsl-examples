@@ -9,7 +9,7 @@ require_once __DIR__.'/WonderArrayConverter.php';
  * Converts an object of class WorldWonders\Wonder into a JSON string and backwards via an array converter.
  *
  * @package WorldWonders
- * @version 1.0.0.16886
+ * @version 1.0.0.42921
  */
 abstract class WonderJsonConverter
 {/**

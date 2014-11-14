@@ -8,19 +8,21 @@ require_once __DIR__.'/WonderArrayConverter.php';
  * Generated from NGS DSL
  *
  * @property string $URI a unique object identifier (read-only)
+ * @property bool $isAncient a boolean value
  * @property string $englishName a string
  * @property array $nativeNames an array of strings
- * @property bool $isAncient a boolean value
+ * @property string $imageURL a string
  *
  * @package WorldWonders
- * @version 1.0.0.16886
+ * @version 1.0.0.42921
  */
 class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
 {
     protected $URI;
+    protected $isAncient;
     protected $englishName;
     protected $nativeNames;
-    protected $isAncient;
+    protected $imageURL;
 
     /**
      * Constructs object using a key-property array or instance of class "WorldWonders\Wonder"
@@ -51,12 +53,14 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     {
         if(!array_key_exists('URI', $data))
             $data['URI'] = null; //a string representing a unique object identifier
+        if(!array_key_exists('isAncient', $data))
+            $data['isAncient'] = false; // a boolean value
         if(!array_key_exists('englishName', $data))
             $data['englishName'] = ''; // a string
         if(!array_key_exists('nativeNames', $data))
             $data['nativeNames'] = array(); // an array of strings
-        if(!array_key_exists('isAncient', $data))
-            $data['isAncient'] = false; // a boolean value
+        if(!array_key_exists('imageURL', $data))
+            $data['imageURL'] = ''; // a string
     }
 
     /**
@@ -71,15 +75,18 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
         if(isset($data['URI']))
             $this->URI = \NGS\Converter\PrimitiveConverter::toString($data['URI']);
         unset($data['URI']);
+        if (array_key_exists('isAncient', $data))
+            $this->setIsAncient($data['isAncient']);
+        unset($data['isAncient']);
         if (array_key_exists('englishName', $data))
             $this->setEnglishName($data['englishName']);
         unset($data['englishName']);
         if (array_key_exists('nativeNames', $data))
             $this->setNativeNames($data['nativeNames']);
         unset($data['nativeNames']);
-        if (array_key_exists('isAncient', $data))
-            $this->setIsAncient($data['isAncient']);
-        unset($data['isAncient']);
+        if (array_key_exists('imageURL', $data))
+            $this->setImageURL($data['imageURL']);
+        unset($data['imageURL']);
 
         if (count($data) !== 0 && \NGS\Utils::WarningsAsErrors())
             throw new \InvalidArgumentException('Superflous array keys found in "WorldWonders\Wonder" constructor: '.implode(', ', array_keys($data)));
@@ -99,6 +106,14 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
+     * @return a boolean value
+     */
+    public function getIsAncient()
+    {
+        return $this->isAncient;
+    }
+
+    /**
      * @return a string
      */
     public function getEnglishName()
@@ -115,11 +130,11 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
-     * @return a boolean value
+     * @return a string
      */
-    public function getIsAncient()
+    public function getImageURL()
     {
-        return $this->isAncient;
+        return $this->imageURL;
     }
 
     /**
@@ -133,12 +148,14 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     {
         if ($name === 'URI')
             return $this->getURI(); // a string representing a unique object identifier
+        if ($name === 'isAncient')
+            return $this->getIsAncient(); // a boolean value
         if ($name === 'englishName')
             return $this->getEnglishName(); // a string
         if ($name === 'nativeNames')
             return $this->getNativeNames(); // an array of strings
-        if ($name === 'isAncient')
-            return $this->getIsAncient(); // a boolean value
+        if ($name === 'imageURL')
+            return $this->getImageURL(); // a string
 
         throw new \InvalidArgumentException('Property "'.$name.'" in class "WorldWonders\Wonder" does not exist and could not be retrieved!');
     }
@@ -156,17 +173,33 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     {
         if ($name === 'URI')
             return $this->URI !== null;
+        if ($name === 'isAncient')
+            return true; // a boolean value (always set)
         if ($name === 'englishName')
             return true; // a string (always set)
         if ($name === 'nativeNames')
             return true; // an array of strings (always set)
-        if ($name === 'isAncient')
-            return true; // a boolean value (always set)
+        if ($name === 'imageURL')
+            return true; // a string (always set)
 
         return false;
     }
 
     private static $_read_only_properties = array('URI');
+
+    /**
+     * @param bool $value a boolean value
+     *
+     * @return bool
+     */
+    public function setIsAncient($value)
+    {
+        if ($value === null)
+            throw new \InvalidArgumentException('Property "isAncient" cannot be set to null because it is non-nullable!');
+        $value = \NGS\Converter\PrimitiveConverter::toBoolean($value);
+        $this->isAncient = $value;
+        return $value;
+    }
 
     /**
      * @param string $value a string
@@ -197,16 +230,16 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     }
 
     /**
-     * @param bool $value a boolean value
+     * @param string $value a string
      *
-     * @return bool
+     * @return string
      */
-    public function setIsAncient($value)
+    public function setImageURL($value)
     {
         if ($value === null)
-            throw new \InvalidArgumentException('Property "isAncient" cannot be set to null because it is non-nullable!');
-        $value = \NGS\Converter\PrimitiveConverter::toBoolean($value);
-        $this->isAncient = $value;
+            throw new \InvalidArgumentException('Property "imageURL" cannot be set to null because it is non-nullable!');
+        $value = \NGS\Converter\PrimitiveConverter::toString($value);
+        $this->imageURL = $value;
         return $value;
     }
 
@@ -220,12 +253,14 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     {
         if(in_array($name, self::$_read_only_properties, true))
             throw new \LogicException('Property "'.$name.'" in "WorldWonders\Wonder" cannot be set, because it is read-only!');
+        if ($name === 'isAncient')
+            return $this->setIsAncient($value); // a boolean value
         if ($name === 'englishName')
             return $this->setEnglishName($value); // a string
         if ($name === 'nativeNames')
             return $this->setNativeNames($value); // an array of strings
-        if ($name === 'isAncient')
-            return $this->setIsAncient($value); // a boolean value
+        if ($name === 'imageURL')
+            return $this->setImageURL($value); // a string
         throw new \InvalidArgumentException('Property "'.$name.'" in class "WorldWonders\Wonder" does not exist and could not be set!');
     }
 
@@ -238,12 +273,14 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     {
         if(in_array($name, self::$_read_only_properties, true))
             throw new \LogicException('Property "'.$name.'" cannot be unset, because it is read-only!');
+        if ($name === 'isAncient')
+            throw new \LogicException('The property "isAncient" cannot be unset because it is non-nullable!'); // a boolean value (cannot be unset)
         if ($name === 'englishName')
             throw new \LogicException('The property "englishName" cannot be unset because it is non-nullable!'); // a string (cannot be unset)
         if ($name === 'nativeNames')
             throw new \LogicException('The property "nativeNames" cannot be unset because it is non-nullable!'); // an array of strings (cannot be unset)
-        if ($name === 'isAncient')
-            throw new \LogicException('The property "isAncient" cannot be unset because it is non-nullable!'); // a boolean value (cannot be unset)
+        if ($name === 'imageURL')
+            throw new \LogicException('The property "imageURL" cannot be unset because it is non-nullable!'); // a string (cannot be unset)
     }
 
     /**
@@ -264,9 +301,10 @@ class Wonder extends \NGS\Patterns\AggregateRoot implements \IteratorAggregate
     {
         $this->URI = $result->URI;
 
+        $this->isAncient = $result->isAncient;
         $this->englishName = $result->englishName;
         $this->nativeNames = $result->nativeNames;
-        $this->isAncient = $result->isAncient;
+        $this->imageURL = $result->imageURL;
     }
 
     public function toJson()
