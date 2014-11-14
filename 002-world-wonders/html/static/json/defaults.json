@@ -1,0 +1,16 @@
+[
+  {"englishName": "Chichen Itza", "nativeNames": ["Chi'ch'een Iitsha'"], "isAncient": false, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Chichen_Itza_3.jpg/300px-Chichen_Itza_3.jpg"},
+  {"englishName": "Christ the Redeemer", "nativeNames": ["????", "Wanli Chángchéng"], "isAncient": false, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Cristo_Redentor_Rio_de_Janeiro_4.jpg/220px-Cristo_Redentor_Rio_de_Janeiro_4.jpg"},
+  {"englishName": "Colosseum", "nativeNames": ["Colosseo"], "isAncient": false, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/250px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg"},
+  {"englishName": "Colossus of Rhodes", "isAncient": true, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Colosse_de_Rhodes_%28Barclay%29.jpg/170px-Colosse_de_Rhodes_%28Barclay%29.jpg"},
+  {"englishName": "Great Pyramid of Giza", "isAncient": true, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/300px-Kheops-Pyramid.jpg"},
+  {"englishName": "Great Wall of China", "nativeNames": ["Colosseo"], "isAncient": false, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/The_Great_Wall_of_China_at_Jinshanling.jpg/240px-The_Great_Wall_of_China_at_Jinshanling.jpg"},
+  {"englishName": "Hanging Gardens of Babylon", "isAncient": true, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Hanging_Gardens_of_Babylon.jpg/350px-Hanging_Gardens_of_Babylon.jpg"},
+  {"englishName": "Lighthouse of Alexandria", "isAncient": true, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Lighthouse_-_Thiersch.gif/220px-Lighthouse_-_Thiersch.gif"},
+  {"englishName": "Machu Picchu", "nativeNames": ["Machu Picchu"], "isAncient": false, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/0/01/80_-_Machu_Picchu_-_Juin_2009_-_edit.2.jpg/285px-80_-_Machu_Picchu_-_Juin_2009_-_edit.2.jpg"},
+  {"englishName": "Mausoleum at Halicarnassus", "isAncient": true, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Mausoleum_of_Halicarnassus_2009.jpg/240px-Mausoleum_of_Halicarnassus_2009.jpg"},
+  {"englishName": "Petra", "nativeNames": ["???????", "Al-Batra"], "isAncient": false, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Al_Khazneh.jpg/250px-Al_Khazneh.jpg"},
+  {"englishName": "Statue of Zeus at Olympia", "isAncient": true, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Statue_of_Zeus.jpg/220px-Statue_of_Zeus.jpg"},
+  {"englishName": "Taj Mahal", "nativeNames": ["??? ???", "??? ???", "isAncient": false, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Taj_Mahal_2012.jpg/280px-Taj_Mahal_2012.jpg"},
+  {"englishName": "Temple of Artemis at Ephesus", "isAncient": true, "imageUrl":"http://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Miniaturk_009.jpg/300px-Miniaturk_009.jpg"}
+]

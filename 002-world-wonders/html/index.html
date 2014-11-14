@@ -19,47 +19,41 @@
               <th>Name</th>
               <th>Native Names</th>
               <th>Image</th>
+              <th>Controls</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr id="">
               <td class="td-ancient">
                 <input name="switch" type="checkbox">
               </td>
-              <td>
-                Giza Necropolis
-              </td>
+              <td class="td-english"></td>
               <td class="td-native">
-                <span class="label label-default">أهرامات الجيزة</span>
+                <span class="label label-default"></span>
               </td>
               <td class="td-image">
-                <img class="image-border js-tooltip" data-toggle="tooltip" data-placement="top" title="Click to change url of image" alt="Pyramide Kheops" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/100px-Kheops-Pyramid.jpg"  height="70">
+                <img class="image-border js-tooltip" data-toggle="tooltip" data-placement="top" title="Click to change url of image" alt="" src=""  height="70">
               </td>
-            </tr>
-            <tr>
-              <td class="td-ancient">
-                <input name="switch" type="checkbox" checked="checked">
-              </td>
-              <td>
-                Great Wall of China
-              </td>
-              <td class="td-native">
-                <span class="label label-default">万里长城</span>
-                <span class="label label-default">Wànlǐ Chángchéng</span>
-              </td>
-              <td class="td-image">
-                <img class="image-border js-tooltip" data-toggle="tooltip" data-placement="top" title="Click to change url of image" alt="Pyramide Kheops" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Kheops-Pyramid.jpg/100px-Kheops-Pyramid.jpg" height="70">
+              <td class="td-delete">
+                <input type="button" value="delete">
               </td>
             </tr>
           </tbody>
         </table>
       </div>
+      <div>
+        <input class="reset-all" type="button" value="Reset All">
+        <input class="insert-new" type="button" value="Insert new Wonder">
+      </div>
     </div>
   </section><!-- end of section main -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-  <script src="static/js/bootstrap-3.2.0.min.js"></script>
-  <script src="static/js/mindmup-editabletable.js"></script>
-  <script src="static/js/bootstrap-switch.js"></script>
-  <script src="static/js/functions.js"></script>
+  <script src="static/js/lib/jquery-2.1.0.min.js"></script>
+  <script src="static/js/lib/bootstrap-3.2.0.min.js"></script>
+  <script src="static/js/lib/mindmup-editabletable.js"></script>
+  <script src="static/js/lib/bootstrap-switch.js"></script>
+  <script src="static/js/src/rest.js"></script>
+  <script src="static/js/src/templater.js"></script>
+  <script src="static/js/src/manager.js"></script>
+  <script src="static/js/src/functions.js"></script>
 </body>
 </html>

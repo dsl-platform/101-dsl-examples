@@ -43,3 +43,7 @@ a.table-custom tbody tr th:hover {
 .label {
   margin: 5px;
 }
+
+.disabled {
+  background-color: gray;
+}
