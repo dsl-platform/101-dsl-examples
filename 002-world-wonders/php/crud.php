@@ -7,7 +7,7 @@ use WorldWonders\WonderJsonConverter;
 
 // PLATFORM INIT
 define('NGS_DSL_PATH',  __DIR__.'/../dsl');
-define('NGS_UPDATE', false);
+//define('NGS_UPDATE', false);
 require_once __DIR__.'/platform/Bootstrap.php';
 
 $crudProxy = CrudProxy::instance();
@@ -15,6 +15,16 @@ $domainProxy = DomainProxy::instance();
 $standardProxy = StandardProxy::instance();
 
 // CRUD
+function crudReset($defaultWonders){
+    crudDeleteAll();
+    return crudCreateWonderList($defaultWonders);
+}
+
+function crudCreateWonderList($wonderList) {
+    global $standardProxy;
+    return $standardProxy->insert($wonderList);
+}
+
 function crudCreateWonder($wonder) {
     global $crudProxy;
     return $crudProxy->create($wonder);
