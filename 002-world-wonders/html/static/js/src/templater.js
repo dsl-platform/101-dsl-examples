@@ -64,7 +64,7 @@ Templater.prototype.htmlToData = function(wonderHTML) {
   });
   var wonderData = {
     URI:         uri,
-    isAncient:   wonderHTML.find('.td-ancient > input').is(':checked'),
+    isAncient:   wonderHTML.find('.td-ancient > div.bootstrap-switch').hasClass('bootstrap-switch-on'),
     englishName: wonderHTML.find('.td-english').text(),
     nativeNames: nativeNames,
     imageURL:    wonderHTML.find('.td-image > img').attr('src')
@@ -98,17 +98,17 @@ Templater.prototype.refByID = function(id) {
 
 // Disables all Wonder HTML entries.
 Templater.prototype.disableAll = function() {
-  this.refAll().addClass('disabled');
+  this.refAll().children().addClass('disabled');
 }
 
 // Disables specified Wonder HTML entry.
 Templater.prototype.disableWonder = function(id) {
-  this.refByID(id).addClass('disabled');
+  this.refByID(id).children().addClass('disabled');
 }
 
 // Enables specified Wonder HTML entry.
 Templater.prototype.enableAll = function() {
-  this.refAll().removeClass('disabled');
+  this.refAll().children().removeClass('disabled');
 }
 
 // Enables specified Wonder HTML entry.

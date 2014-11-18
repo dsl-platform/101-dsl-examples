@@ -45,5 +45,5 @@ a.table-custom tbody tr th:hover {
 }
 
 .disabled {
-  background-color: gray;
+  background-color: gray !important;
 }

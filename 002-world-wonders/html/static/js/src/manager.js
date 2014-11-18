@@ -13,18 +13,20 @@ Manager.prototype.init = function() {
 
 Manager.prototype.findAll = function() {
   var self = this;
-  this.templater.disableAll();
+  this.templater.deleteAll();
+  this.showSpinner();
   this.rest.get('wonders', function(wonderDataList) {
-    self.templater.deleteAll();
+    self.hideSpinner();
     self.templater.insertWonderList(wonderDataList)
   });
 }
 
 Manager.prototype.resetAll = function() {
   var self = this;
-  this.templater.disableAll();
+  this.templater.deleteAll();
+  this.showSpinner();
   this.rest.get('reset', function(wonderDataList) {
-    self.templater.deleteAll();
+    self.hideSpinner();
     self.templater.insertWonderList(wonderDataList);
   });
 }
@@ -59,4 +61,12 @@ Manager.prototype.insertNew = function() {
       templater.insertWonder(insertedWonderData);
     });
   });
+}
+
+Manager.prototype.showSpinner = function() {
+  $('#div-spinner').removeClass('hidden');
+}
+
+Manager.prototype.hideSpinner = function() {
+  $('#div-spinner').addClass('hidden');
 }

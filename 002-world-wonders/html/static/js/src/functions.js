@@ -7,92 +7,93 @@ var templater = new Templater();
 var manager = new Manager(rest, templater);
 
 $(document).ready(function(){
-  $('.td-ancient').click(function(){
-    return false;
-  })
-
-  // Editable Table
-  $('#mainTable').editableTableWidget({
+  // isAncient field change
+  $('table').on('click', '.td-ancient > div.bootstrap-switch', function(evt) {
+    var cellRef = $(this);
+    var rowRef  = cellRef.parent().parent();
+    var id      = rowRef.attr('id');
+    var newWonderData = templater.htmlToData(rowRef);
+    console.log(newWonderData);
+    manager.updateWonder(id, newWonderData);
   });
-
-  // Ignore click
-  $('table').on('click', '.td-ancient', function(evt) {
-    return false;
+  
+  // englishName field change
+  $('table').on('click', '.td-english', function(evt) {
+    var cellRef  = $(this);
+    var rowRef   = cellRef.parent();
+    var id       = rowRef.attr('id');
+    var oldValue = cellRef.text();
+    var newValue = prompt('Enter new wonder name', oldValue);
+    if (newValue != null) {
+      cellRef.html(newValue);
+      var newWonderData = templater.htmlToData(rowRef);
+      console.log(newWonderData);
+      manager.updateWonder(id, newWonderData);
+    }
   });
-
-  // Convert native name spans to text for editing.
+  
+  // nativeNames field change
   $('table').on('click', '.td-native', function(evt) {
-    var nameStr = '';
-    var nameArr = $(this).find('span').map(function(index, elem) {
+    var cellRef  = $(this);
+    var rowRef   = cellRef.parent();
+    var id       = rowRef.attr('id');
+    var oldValue = '';
+    cellRef.find('span').each(function(index, elem) {
       var text = $(this).text();
-      if (nameStr === '') {
-        nameStr += text;
+      if (oldValue === '') {
+        oldValue += text;
       } else {
-        nameStr += ', ' + text;
+        oldValue += ', ' + text;
       }
     });
-
-    $(this).html(nameStr);
-  });
-
-  // Convert images to text for editing.
-  $('table').on('click', '.td-image', function(evt) {
-    var url = $(this).find('img').attr('src');
-    $(this).html(url);
-  });
-
-  // Ignore click
-  $('table').on('click', '.td-delete', function(evt) {
-    return false;
-  });
-
-  // After editing, convert text back to spans or images.
-  $('table').on('change', 'td', function(evt, newValue) {
-    var ret = null;
-    
-    if ($(this).hasClass('td-ancient')) {
-      editor: false;
-      ret = false;
-    } else if ($(this).hasClass('td-english')) {
-    } else if ($(this).hasClass('td-native')) {
-      var splitValue = newValue.split(/\s*,\s*/g);
-      var output = '';
-      splitValue.forEach(function(item){
-        output += '<span class="label label-default">'+item+'</span>';
+    var newValue = prompt('Enter new wonder native names', oldValue);
+    if (newValue != null) {
+      var htmlValue = '';
+      newValue.split(/\s*,\s*/g).forEach(function(item){
+        htmlValue += '<span class="label label-default">' + item + '</span>';
       });
-      $(this).html(output);
-    } else if ($(this).hasClass('td-image')) {
-      $(this).html('<img height="70" class="image-border js-tooltip" data-toggle="tooltip" data-placement="top" title="Click to change url of image" src="'+newValue+'" />');
-      $('.js-tooltip').tooltip();
-    } else if ($(this).hasClass('td-delete')) {
-      editor: false;
-      ret = false;
+      cellRef.html(htmlValue);
+      var newWonderData = templater.htmlToData(rowRef);
+      console.log(newWonderData);
+      manager.updateWonder(id, newWonderData);
     }
-
-    /*
-    var row = $(this).parent();
-    var id = row.attr('id');
-    var newWonderData = templater.htmlToData(row);
-    manager.updateWonder(id, newWonderData);*/
-    return ret;
+  });
+  
+  // imageURL field change
+  $('table').on('click', '.td-image', function(evt) {
+    var cellRef  = $(this);
+    var rowRef   = cellRef.parent();
+    var id       = rowRef.attr('id');
+    var oldValue = cellRef.find('img').attr('src');
+    var newValue = prompt('Enter new wonder image URL', oldValue);
+    if (newValue != null) {
+      cellRef.html('<img height="70" class="image-border js-tooltip" data-toggle="tooltip" data-placement="top" title="Click to change url of image" src="' + newValue + '" />');
+      var newWonderData = templater.htmlToData(rowRef);
+      console.log(newWonderData);
+      manager.updateWonder(id, newWonderData);
+    }
+  });
+  
+  // delete action
+  $('table').on('click', '.td-controls > input.input-delete', function(evt) {
+    var id = $(this).parent().parent().attr('id');
+    manager.deleteWonder(id);
   });
 
-/*
-  $('input[name="switch"]').on('switchChange.bootstrapSwitch', function(event, state) {
-    console.log(this); // DOM element
-    console.log(event); // jQuery event
-    console.log(state); // true | false
+  // reset all action
+  $('.reset-all').click(function() {
+    manager.resetAll();
   });
-*/
+
+  // insert new action
+  $('.insert-new').click(function() {
+    manager.insertNew();
+  });
+  
   // Tooltip
   $('.js-tooltip').tooltip();
 
-  manager.init();
-  manager.findAll();
-
-
   // Bootstrap Switch
-
   $('table').on('DOMNodeInserted', function (evt, a) {
     var chbox = $(evt.target).find('td.td-ancient > input');
     chbox.bootstrapSwitch({
@@ -102,18 +103,8 @@ $(document).ready(function(){
       offColor : 'danger'
     });
   });
-
-  $('.reset-all').click(function() {
-    manager.resetAll();
-  });
-
-  $('.insert-new').click(function() {
-    manager.insertNew();
-  });
-
-  $('table').on('click', '.td-delete > input', function(evt, newValue) {
-    var row = $(this).parent().parent();
-    var id = row.attr('id');
-    manager.deleteWonder(id);
-  });
+  
+  // Initialization
+  manager.init();
+  manager.findAll();
 });
